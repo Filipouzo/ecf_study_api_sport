@@ -1,0 +1,59 @@
+
+
+:body {
+    font-family: HeadingProDouble-Regular,sans-serif;
+    background-color:white;
+}
+
+.banner {
+    color : white;
+    font-size: 22px;
+    font-family: 'Allerta Stencil';
+    font-weight: bolder;
+    display: flex;
+    align-items: center;
+    justify-content:space-evenly;
+    height: 100%;
+}
+
+.wrapper {
+    border-radius: 30px;
+    background-color: rgba(54, 54, 54, 1);
+    color : white;
+    margin: 1em auto;
+    max-width: 600px;
+    width: 95%;
+    align-items: center;
+    text-align: center;
+    padding: 0.5rem;
+}
+
+/* palette couleur SCSS RGB */
+$jet: rgba(54, 54, 54, 1);
+$battleship-grey: rgba(134, 139, 143, 1);
+$yellow-orange: rgba(250, 174, 64, 1);
+$princeton-orange: rgba(236, 119, 0, 1);
+
+/* palette couleur SCSS Gradient */
+$gradient-top: linear-gradient(0deg, #363636ff, #868b8fff, #faae40ff, #ec7700ff);
+$gradient-right: linear-gradient(90deg, #363636ff, #868b8fff, #faae40ff, #ec7700ff);
+$gradient-bottom: linear-gradient(180deg, #363636ff, #868b8fff, #faae40ff, #ec7700ff);
+$gradient-left: linear-gradient(270deg, #363636ff, #868b8fff, #faae40ff, #ec7700ff);
+$gradient-top-right: linear-gradient(45deg, #363636ff, #868b8fff, #faae40ff, #ec7700ff);
+$gradient-bottom-right: linear-gradient(135deg, #363636ff, #868b8fff, #faae40ff, #ec7700ff);
+$gradient-top-left: linear-gradient(225deg, #363636ff, #868b8fff, #faae40ff, #ec7700ff);
+$gradient-bottom-left: linear-gradient(315deg, #363636ff, #868b8fff, #faae40ff, #ec7700ff);
+$gradient-radial: radial-gradient(#363636ff, #868b8fff, #faae40ff, #ec7700ff);
+
+//Remplacement des couleurs Bootstrap avec les couleurs du color-theme
+$body-bg: #ffffff;
+$body-color: #111;
+$theme-colors: (
+        "primary":rgba(250, 174, 64, 1),
+        "secondary":rgba(236, 119, 0, 1),
+        "danger": #900,
+        "custom-color": #900,
+        "info": rgba(54, 54, 54, 1),
+        "light":rgba(134, 139, 143, 1),
+        "white": #ffffff
+)
