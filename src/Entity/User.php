@@ -6,10 +6,12 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -19,8 +21,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
-    #[ORM\Column]
-    private array $roles = [];
+
     /**
      * @var string The hashed password
      */
@@ -44,13 +45,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: GlobalOption::class, mappedBy: 'id_partner')]
     private Collection $globalOptions;
 
+    #[ORM\Column]
+    private array $roles = [];
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
         $this->globalOptions = new ArrayCollection();
     }
 
-    
 
     public function getId(): ?int
     {
@@ -77,24 +80,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return (string) $this->email;
     }
 
-    /**
-     * @see UserInterface
-     */
-    public function getRoles(): array
-    {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
 
-        return array_unique($roles);
-    }
-
-    public function setRoles(array $roles): self
-    {
-        $this->roles = $roles;
-
-        return $this;
-    }
 
     /**
      * @see PasswordAuthenticatedUserInterface
@@ -233,4 +219,40 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_STRUCTURE';
+
+        return array_unique($roles);
+    }
+    
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+        return $this;
+    }
 }
+
+
+
+    /**
+     * @see UserInterface
+     */
+    // public function getRoles(): array
+    // {
+    //     $roles = $this->roles;
+    //     // guarantee every user at least has ROLE_STRUCTURE
+    //     $roles[] = 'ROLE_STRUCTURE';
+
+    //     return array_unique($roles);
+    // }
+
+
+
+
+
+

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Connexion{% endblock %}
+{% block title %}{{ nomPage }}{% endblock %}
 
 {% block body %}
     <div class="wrapper mt-5 p-3">
@@ -9,11 +9,7 @@
                 <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
             {% endif %}
 
-            {% if app.user %}
-                <div class="mb-3">
-                    Vous êtes connecté(e) en tant que : {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Me déconnecter</a>
-                </div>
-            {% endif %}
+
 
             <h3>Bienvenue dans votre espace d'administration EasyFit</h3>
             <h4 class="mt-5">Connectez-vous pour acceder à votre compte</h4>
