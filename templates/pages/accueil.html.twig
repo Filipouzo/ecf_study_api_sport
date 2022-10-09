@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ nomPage }}
+{% endblock %}
+
+{% block body %}
+
+	{% include "partials/_navbar.html.twig" %}
+
+
+	<div class="wrapper">
+
+
+		<h3>Bienvenue
+			<strong>{{ app.user.userIdentifier }}</strong>
+			sur votre compte
+			{% if is_granted('ROLE_ADMINISTRATEUR') %}
+				administrateur
+			{% elseif is_granted('ROLE_PARTENAIRE') %}
+				partenaire
+			{% elseif is_granted('ROLE_STRUCTURE') %}
+				une structure
+			{% endif %}
+		</h3>
+
+	</div>
+
+	{% if is_granted('ROLE_ADMINISTRATEUR') %}
+		<div class="wrapper">
+			<a href="{# {{ path('') }} #}">Gérer les administrateur</a>
+		</div>
+
+		<div class="wrapper">
+			<a href="{# {{ path('') }} #}">Gérer les partenaires</a>
+		</div>
+
+		<div class="wrapper">
+			<a href="{# {{ path('') }} #}">Gérer les structures</a>
+		</div>
+	{% elseif is_granted('ROLE_PARTENAIRE') %}
+		<div class="wrapper">
+			<a href="{# {{ path('') }} #}">Voir vos options globales</a>
+		</div>
+
+		<div class="wrapper">
+			<a href="{# {{ path('') }} #}">Voir vos structures</a>
+		</div>
+	{% elseif is_granted('ROLE_STRUCTURE') %}
+		<div class="wrapper">
+			<a href="{# {{ path('') }} #}">Voir vos options</a>
+		</div>
+	{% endif %}
+
+
+{% endblock %}

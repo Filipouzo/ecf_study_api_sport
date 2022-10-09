@@ -1,8 +1,28 @@
 <div class="banner container-fluid bg-secondary m-0 p-1">
-	<a href="{{ path('app_home') }}">
+	<a {% if app.user %} href="{{ path('app_accueil') }}" {% else %} href="{{ path('app_login') }}" {% endif %}>
 		<img class="d-inline-block align-middle" src="{{ asset('/Pictures/logo.PNG') }}" width="140" alt="logo EasyFit"/>
 	</a>
 	<div>
 		Build your body !
 	</div>
+
+	{% if app.user %}
+		<div class:"ms-auto">
+			<div>
+				Vous êtes 
+
+				{% if is_granted('ROLE_ADMINISTRATEUR') %}
+					administrateur
+				{% elseif is_granted('ROLE_PARTENAIRE') %}
+					partenaire
+				{% elseif is_granted('ROLE_STRUCTURE') %}
+					une structure
+				{% endif %}
+			</div>
+			<div>
+				<a href="{{ path('app_logout') }}">Me déconnecter</a>
+			</div>
+		</div>
+
+	{% endif %}
 </div>
