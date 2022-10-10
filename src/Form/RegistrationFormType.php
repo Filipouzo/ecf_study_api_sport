@@ -42,7 +42,7 @@ class RegistrationFormType extends AbstractType
                 ]
             ])
 
-            ->add('roles', ChoiceType::Class, [
+/*             ->add('roles', ChoiceType::Class, [
                 'choices' => [
                     'administrateur' => 'ROLE_ADMINISTRATEUR',
                     'Partenaire' => 'ROLE_PARTENAIRE',
@@ -52,7 +52,7 @@ class RegistrationFormType extends AbstractType
                 'multiple' => true,
                 'label' => 'Rôle'
             ])
-
+ */
             ->add('activated', CheckboxType::class, [
                 'label' => 'Activer',
                 'mapped' => false,

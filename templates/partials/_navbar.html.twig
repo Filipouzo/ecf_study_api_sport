@@ -10,7 +10,18 @@
 			<ul class="navbar-nav me-auto">
 
 				<li class="nav-item">
-					<a class="nav-link active" href="{{ path('app_accueil') }}">
+					<a class="nav-link active"
+          {% if app.user %} 	
+            {% if is_granted('ROLE_ADMINISTRATEUR') %}
+              href="{{ path('admin_accueil') }}" 
+            {% elseif is_granted('ROLE_PARTENAIRE') %}
+              href="{{ path('partenaire_accueil') }}" 
+            {% elseif is_granted('ROLE_STRUCTURE') %}
+              href="{{ path('structure_accueil') }}" 
+            {% endif %}
+          {% else %} 
+            href="{{ path('app_login') }}" 
+          {% endif %}>
 						<font style="vertical-align: inherit;">
 							<font style="vertical-align: inherit;">Accueil
 							</font>
@@ -27,7 +38,7 @@
 
 
 					<li class="nav-item">
-						<a class="nav-link active" href="{{ path('admin_index') }}">
+						<a class="nav-link active" href="{{ path('admin_accueil') }}">
 							<font style="vertical-align: inherit;">
 								<font style="vertical-align: inherit;">Administrateurs
 								</font>

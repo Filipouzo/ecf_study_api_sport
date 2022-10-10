@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ pageName }}
+{% endblock %}
+
+{% block body %}
+
+	{% include "partials/_navbar.html.twig" %}
+
+
+	<div class="wrapper">
+
+		<div class="m-5">
+			<a href="{{ path('app_register') }}">Ajouter un nouvel  enregistrement : {{ userToAdmin }}</a>
+		</div>
+
+
+		<h3>Liste des <strong>{{ userToAdmin }}</strong> :</h3>
+
+		<form class="d-flex">
+			<input class="form-control me-sm-2" type="text" placeholder="Chercher">
+			<button class="btn btn-secondary my-2 my-sm-0" type="submit">
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">Chercher</font>
+				</font>
+			</button>
+		</form>
+
+		<table class="table">
+			<thead>
+				<th>Email</th>
+				<th>Rôles</th>
+				<th>Supprimer</th>
+			</thead>
+
+			<tbody>
+				{% for user in users %}
+					<tr>
+						<td>{{ user.email }}</td>
+						<td>
+							{% for role in user.roles %}
+								{% if role == "ROLE_ADMINISTRATEUR" %}
+									Administrateur
+								{% elseif role == "ROLE_PARTENAIRE" %}
+									Partenaire
+								{% elseif role == "ROLE_STRUCTURE" %}
+									Structure
+								{% endif %}
+							{% endfor %}
+						</td>
+
+
+						<td>
+							{# TODO ajouter la réference du bouton #}
+							<a href="" class="btn btn-warning">Supprimer</a>
+						</td>
+					</tr>
+
+				{% else %}
+					<tr>
+						<td>Il n'y a pas d'enregistrement pour ce tableau</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+
+	</div>
+{% endblock %}
