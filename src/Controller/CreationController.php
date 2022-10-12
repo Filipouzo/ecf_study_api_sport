@@ -15,7 +15,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class CreationController extends AbstractController
 {
     #[Route('{userToAdmin}/creation', name: 'administrateur_creation')]
-    public function creation(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, $userToAdmin, $parent): Response
+    public function creation(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, $userToAdmin): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -31,7 +31,7 @@ class CreationController extends AbstractController
             );
 
             	// TODO  A revoir
-                if(isset($parent)){}
+                //if(isset($parent)){}
 
 
 /*             if ($userToAdmin == 'administrateur'){

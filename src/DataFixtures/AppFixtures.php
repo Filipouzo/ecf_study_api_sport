@@ -25,6 +25,24 @@ class AppFixtures extends Fixture
                 ->setRoles(['ROLE_ADMINISTRATEUR']);
 
         $manager->persist($admin);
+
+        $partenaire = new User();
+        $partenaire  ->setEmail("partenaire@exemple.com")
+                ->setPassword($this->hasher->hashPassword($admin, 'partenaire'))
+                ->setName("partenaire")
+                ->setRoles(['ROLE_PARTENAIRE']);
+    
+        $manager->persist($partenaire);
+
+        $structure = new User();
+        $structure  ->setEmail("structure@exemple.com")
+                ->setPassword($this->hasher->hashPassword($admin, 'structure'))
+                ->setName("structure")
+                ->setRoles(['ROLE_STRUCTURE']);
+    
+        $manager->persist($structure);
+
         $manager->flush();
     }
+
 }
