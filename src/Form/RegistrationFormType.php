@@ -58,6 +58,16 @@ class RegistrationFormType extends AbstractType
                 ]
             ])
 
+/*             ->add('parent', TextType::class, [
+                'required' => true,
+                'label' => 'Veuillez saisir un e-Mail',
+                'constraints' => new Length(min: 2, max: 30),
+                'attr' => [
+                    'placeholder' => 'E-Mail',
+                    'class' => 'form-control'
+                ]
+            ]) */
+
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
