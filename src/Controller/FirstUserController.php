@@ -13,7 +13,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class FirstUserController extends AbstractController
 {
-    #[Route('/', name: 'app/first_creation')]
+    #[Route('/', name: 'app_first_creation')]
     public function firstUser(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
 
@@ -31,7 +31,7 @@ class FirstUserController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-            
+
             $user->setRoles(['ROLE_ADMINISTRATEUR']);
 
             $entityManager->persist($user);
