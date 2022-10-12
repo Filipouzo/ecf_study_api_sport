@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\UserRepository;
+use Doctrine\ORM\Mapping\Id;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,7 +17,6 @@ class ListeController extends AbstractController
     #[Route('administrateur/liste/{userToAdmin}', name: 'administrateur_liste')]
     public function adminList(UserRepository $users, $userToAdmin)
     {
-        
 
         return $this->render("pages/liste.html.twig", [
             'users' => $users->findByRole('ROLE_'. strtoupper($userToAdmin)),
