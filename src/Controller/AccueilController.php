@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\UserRepository;
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,8 +15,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AccueilController extends AbstractController
 {
-    #[Route('admin/accueil', name: 'admin_accueil')]
-    public function admin_accueil(): Response
+    #[Route('admin/accueil', name: 'administrateur_accueil')]
+    public function administrateur_accueil(): Response
     {
         return $this->render('pages/accueil.html.twig', [
             'pageName' => 'Accueil',

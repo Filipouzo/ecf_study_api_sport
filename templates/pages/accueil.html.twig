@@ -1,8 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}
-	{{ pageName }}
-{% endblock %}
+{% block title %}{{ pageName }}{% endblock %}
 
 {% block body %}
 
@@ -10,37 +8,23 @@
 
 
 	<div class="wrapper">
-		<h3>Bienvenue
-			<strong>{{ app.user.userIdentifier }}</strong>
-			sur votre compte
-			{{ userRole }}.</h3>
+		<h3>Bienvenue <strong>{{ app.user.userIdentifier }}</strong> sur votre compte {{ userRole }}.</h3>
+	
+
+		{% if is_granted('ROLE_ADMINISTRATEUR') %}
+				<a href="{{ path('administrateur_liste',{'userToAdmin': 'administrateur' }) }}" class="btn btn-primary" >Gérer les administrateur</a>
+				<a href="{{  path('administrateur_liste',{'userToAdmin': 'partenaire' })  }}" class="btn btn-primary">Gérer les partenaires</a>
+				<a href="{{ path('administrateur_liste',{'userToAdmin': 'structure' }) }}" class="btn btn-primary">Gérer les structures</a>
+
+		{% elseif is_granted('ROLE_PARTENAIRE') %}
+				<a href="{# {{ path('') }} #}" class="btn btn-primary">Voir vos options globales</a>
+				<a href="{{ path('partenaire_liste') }}">Voir vos structures</a>
+
+		{% elseif is_granted('ROLE_STRUCTURE') %}
+				<a href="{# {{ path('') }} #}" class="btn btn-primary">Voir vos options</a>
+		{% endif %}
+
 	</div>
-
-	{% if is_granted('ROLE_ADMINISTRATEUR') %}
-		<div class="wrapper">
-			<a href="{{ path('admin_liste') }}">Gérer les administrateur</a>
-		</div>
-
-		<div class="wrapper">
-			<a href="{{ path('partenaire_liste') }}">Gérer les partenaires</a>
-		</div>
-
-		<div class="wrapper">
-			<a href="{{ path('structure_liste') }}">Gérer les structures</a>
-		</div>
-	{% elseif is_granted('ROLE_PARTENAIRE') %}
-		<div class="wrapper">
-			<a href="{# {{ path('') }} #}">Voir vos options globales</a>
-		</div>
-
-		<div class="wrapper">
-			<a href="{# {{ path('') }} #}">Voir vos structures</a>
-		</div>
-	{% elseif is_granted('ROLE_STRUCTURE') %}
-		<div class="wrapper">
-			<a href="{# {{ path('') }} #}">Voir vos options</a>
-		</div>
-	{% endif %}
 
 
 {% endblock %}

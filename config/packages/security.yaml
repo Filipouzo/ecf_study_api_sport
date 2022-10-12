@@ -31,13 +31,10 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        #  - { path: ^/administrateurs, roles: ROLE_ADMIN }
-        #  - { path: ^/partenaires, roles: ROLE_PARTENAIRE }
-        #  - { path: ^/structures, roles: ROLE_STRUCTURE }
+        #  - { path: ^/administrateurs, roles: ROLE_ADMINISTRATEUR }
+        #  - { path: ^/partenaire, roles: ROLE_PARTENAIRE }
+        #  - { path: ^/structure, roles: ROLE_STRUCTURE }
 
-    # role_hierarchy:
-    #     ROLE_ADMINSITRATEUR: ROLE_PARTENAIRE
-    #     ROLE_PARTENAIRE: ROLE_STRUCTURE
 
 when@test:
     security:

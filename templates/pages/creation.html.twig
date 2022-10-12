@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Enregistrement{% endblock %}
+{% block title %}{{ pageName }}{% endblock %}
 
 {% block body %}
 
@@ -8,7 +8,8 @@
         <div class="row">
             <div class="col">
                 
-		        <h1>Nouvel enregistrement</h1>
+		        <h1>Nouvel enregistrement {{ userToCreate}}</h1>
+
 
                {{ form_start(registrationForm) }}
                     {{ form_row(registrationForm.name) }}
@@ -16,7 +17,6 @@
                     {{ form_row(registrationForm.email) }}
                     {{ form_row(registrationForm.plainPassword) }}
                     {{ form_row(registrationForm.activated) }}
-                    {# {{ form_row(registrationForm.roles) }} #}
 
                     <button type="submit" class="btn btn-primary mt-3">Enregistrer</button>
                 {{ form_end(registrationForm) }}

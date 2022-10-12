@@ -13,13 +13,15 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ListeController extends AbstractController
 {
-    #[Route('administrateur/liste', name: 'admin_liste')]
-    public function adminList(UserRepository $users)
+    #[Route('administrateur/liste/{userToAdmin}', name: 'administrateur_liste')]
+    public function adminList(UserRepository $users, $userToAdmin)
     {
+        
+
         return $this->render("pages/liste.html.twig", [
-            'users' => $users->findAll(),
-            'pageName' => 'liste Administrateurs',
-            'userToAdmin' => 'administrateur'
+            'users' => $users->findByRole('ROLE_'. strtoupper($userToAdmin)),
+            'pageName' => $userToAdmin,
+            'userToAdmin' => $userToAdmin
 
             /* findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null) */
 
@@ -30,7 +32,7 @@ class ListeController extends AbstractController
     public function partenaireList(UserRepository $users)
     {
         return $this->render("pages/liste.html.twig", [
-            'users' => $users->findAll(),
+            'users' => $users->findByRole('partenaire'),
             'pageName' => 'liste Partenaires',
             'userToAdmin' => 'partenaire'
 
@@ -43,7 +45,7 @@ class ListeController extends AbstractController
     public function structureList(UserRepository $users)
     {
         return $this->render("pages/liste.html.twig", [
-            'users' => $users->findAll(),
+            'users' => $users->findByRole('structure'),
             'pageName' => 'liste Partenaires',
             'userToAdmin' => 'structure'
 
@@ -52,3 +54,5 @@ class ListeController extends AbstractController
         ]);
     }
 }
+
+

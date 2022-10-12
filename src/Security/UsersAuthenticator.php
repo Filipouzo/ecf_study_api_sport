@@ -46,19 +46,19 @@ class UsersAuthenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($targetPath);
         }
 
+
         $user = $token->getUser();
 
-
-        if (in_array("ROLE_ADMINISTRATEUR", $user->getRoles())) {
-            return new RedirectResponse($this->urlGenerator->generate('admin_accueil' ));
-            }
-        elseif  (in_array("ROLE_PARTENAIRE", $user->getRoles())) {
+        if (in_array("ROLE_ADMINISTRATEUR", $user->getRoles())) {    
+            return new RedirectResponse($this->urlGenerator->generate('administrateur_accueil'));
+        } 
+        elseif (in_array("ROLE_PARTENAIRE", $user->getRoles())) {
             return new RedirectResponse($this->urlGenerator->generate('partenaire_accueil'));
-            }
-        elseif  (in_array("ROLE_STRUCTURE", $user->getRoles())) {
+        } 
+        elseif (in_array("ROLE_STRUCTURE", $user->getRoles())) {
             return new RedirectResponse($this->urlGenerator->generate('strcture_accueil'));
-            }
-    
+        }
+
 
         // For example:
         // return new RedirectResponse($this->urlGenerator->generate('app_accueil'));

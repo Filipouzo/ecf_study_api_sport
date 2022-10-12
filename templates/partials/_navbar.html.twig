@@ -10,18 +10,7 @@
 			<ul class="navbar-nav me-auto">
 
 				<li class="nav-item">
-					<a class="nav-link active"
-          {% if app.user %} 	
-            {% if is_granted('ROLE_ADMINISTRATEUR') %}
-              href="{{ path('admin_accueil') }}" 
-            {% elseif is_granted('ROLE_PARTENAIRE') %}
-              href="{{ path('partenaire_accueil') }}" 
-            {% elseif is_granted('ROLE_STRUCTURE') %}
-              href="{{ path('structure_accueil') }}" 
-            {% endif %}
-          {% else %} 
-            href="{{ path('app_login') }}" 
-          {% endif %}>
+					<a class="nav-link active" {% if app.user %} {% if is_granted('ROLE_ADMINISTRATEUR') %} href="{{ path('administrateur_accueil') }}" {% elseif is_granted('ROLE_PARTENAIRE') %} href="{{ path('partenaire_accueil') }}" {% elseif is_granted('ROLE_STRUCTURE') %} href="{{ path('structure_accueil') }}" {% endif %} {% else %} href="{{ path('app_login') }}" {% endif %}>
 						<font style="vertical-align: inherit;">
 							<font style="vertical-align: inherit;">Accueil
 							</font>
@@ -36,9 +25,8 @@
 
 				{% if is_granted('ROLE_ADMINISTRATEUR') %}
 
-
 					<li class="nav-item">
-						<a class="nav-link active" href="{{ path('admin_accueil') }}">
+						<a class="nav-link active" href="{{ path('administrateur_liste',{'userToAdmin': 'administrateur' }) }}">
 							<font style="vertical-align: inherit;">
 								<font style="vertical-align: inherit;">Administrateurs
 								</font>
@@ -51,9 +39,8 @@
 						</a>
 					</li>
 
-
 					<li class="nav-item">
-						<a class="nav-link" href="{# {{ path('app_partenaire_index') }} #}">
+						<a class="nav-link" href="{{ path('administrateur_liste',{'userToAdmin': 'partenaire' }) }}">
 							<font style="vertical-align: inherit;">
 								<font style="vertical-align: inherit;">Partenaires</font>
 							</font>
@@ -61,7 +48,7 @@
 					</li>
 
 					<li class="nav-item">
-						<a class="nav-link" href="{# {{ path('app_structure_index') }} #}">
+						<a class="nav-link" href="{{ path('administrateur_liste',{'userToAdmin': 'structure' }) }}">
 							<font style="vertical-align: inherit;">
 								<font style="vertical-align: inherit;">Structures</font>
 							</font>
