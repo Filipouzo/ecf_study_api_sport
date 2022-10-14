@@ -39,6 +39,7 @@
 						<thead>
 							<th>Email</th>
 							<th>Rôles</th>
+							<th>Activé</th>
 							<th>Supprimer</th>
 						</thead>
 
@@ -57,7 +58,9 @@
 											{% endif %}
 										{% endfor %}
 									</td>
-
+									<td>
+										{{ user.activated ? 'OUI' : 'NON' }}
+									</td>
 
 									<td>
 										{# TODO ajouter la réference du bouton #}
@@ -85,16 +88,27 @@
 
 
 
+		{# affichage Role partenaire #}
+		{% if is_granted('ROLE_ADMINISTRATEUR') %}
+		{% endif %}
 
+		{# affichage Role structure #}
+		{% if is_granted('ROLE_STRUCTURE') %}
 
+                            {# 
+							{% if userToAdmin.options %}
+                                {% if option.isactivated == true %}
+                                    {{option.Name}} | 
+                                {% endif %} 
+							{% endif %}
+							#}
 
-
-
-
-
+		{% endif %}
 
 	</div>
 
 
 
 {% endblock %}
+
+

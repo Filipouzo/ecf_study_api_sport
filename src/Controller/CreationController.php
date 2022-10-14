@@ -30,10 +30,13 @@ class CreationController extends AbstractController
                 )
             );
 
-            	// TODO  A revoir
-                //if(isset($parent)){}
 
             $user->setActivated('true');
+
+            	// TODO  setParent   faire la gestion du parent                
+                    //if(isset($parent)){}
+
+                // TODO  setPasseword ( enregistrer un Mot de passe aléatoire provisoire ) */
 
 
 /*             if ($userToAdmin == 'administrateur'){

@@ -37,34 +37,28 @@ class RegistrationFormType extends AbstractType
                 'label' => 'Adresse',
                 'constraints' => new Length(min: 2, max: 30),
                 'attr' => [
-                    'placeholder' => 'Ville',
+                    'placeholder' => 'Adresse de la structure',
                     'class' => 'form-control'
                 ]
             ])
 
-            ->add('activated', CheckboxType::class, [
+/*             ->add('activated', CheckboxType::class, [
                 'label' => 'Activer',
                 'mapped' => false,
                 'required' => false
-            ])
+            ]) */
 
             ->add('email', EmailType::class, [
                 'required' => true,
-                'label' => 'Veuillez saisir un e-Mail',
+                'label' => 'E-mail',
                 'constraints' => new Length(min: 2, max: 30),
                 'attr' => [
-                    'placeholder' => 'E-Mail',
+                    'placeholder' => 'E-mail',
                     'class' => 'form-control'
                 ]
             ])
 
 /*             ->add('parent', TextType::class, [
-                'required' => true,
-                'label' => 'Veuillez saisir un e-Mail',
-                'constraints' => new Length(min: 2, max: 30),
-                'attr' => [
-                    'placeholder' => 'E-Mail',
-                    'class' => 'form-control'
                 ]
             ]) */
 
@@ -73,7 +67,7 @@ class RegistrationFormType extends AbstractType
                 // this is read and encoded in the controller
                 'mapped' => false,
                 'required' => true,
-                'label' => 'Saisir un mot de passe',
+                'label' => 'Entrer votre mot de passe',
                 'attr' => [
                     'placeholder' => 'Mot de passe',
                     'autocomplete' => 'new-password',

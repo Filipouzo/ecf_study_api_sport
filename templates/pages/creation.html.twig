@@ -4,6 +4,9 @@
 
 {% block body %}
 
+
+	{% include "partials/_navbar.html.twig" %}
+
     <section class="container">
         <div class="row">
             <div class="col">
@@ -11,15 +14,19 @@
 		        <h1>Nouvel enregistrement {{ userToCreate}}</h1>
 
 
-               {{ form_start(registrationForm) }}
+  {#              {{ form_start(registrationForm) }} #}
+
+					{% if userToCreate == 'administrateur' or userToCreate == 'partenaire'%}
                     {{ form_row(registrationForm.name) }}
+					{% endif %}
+					{% if userToCreate == 'structure'%}
                     {{ form_row(registrationForm.address) }}
+					{% endif %}
                     {{ form_row(registrationForm.email) }}
-                    {{ form_row(registrationForm.plainPassword) }}
-                    {{ form_row(registrationForm.activated) }}
+{#                     {{ form_row(registrationForm.plainPassword) }} #}
 
                     <button type="submit" class="btn btn-primary mt-3">Enregistrer</button>
-                {{ form_end(registrationForm) }}
+{#                 {{ form_end(registrationForm) }} #}
 
             </div>
         </div>

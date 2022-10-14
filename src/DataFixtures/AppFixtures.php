@@ -36,14 +36,23 @@ class AppFixtures extends Fixture
     
         $manager->persist($partenaire);
 
-        $structure = new User();
-        $structure  ->setEmail("structure@exemple.com")
+        $structurein = new User();
+        $structurein  ->setEmail("structurein@exemple.com")
                 ->setPassword($this->hasher->hashPassword($admin, 'structure'))
-                ->setName("structure")
+                ->setName("structurein")
                 ->setActivated('true')
                 ->setRoles(['ROLE_STRUCTURE']);
     
-        $manager->persist($structure);
+        $manager->persist($structurein);
+
+        $structureout = new User();
+        $structureout  ->setEmail("structureout@exemple.com")
+                ->setPassword($this->hasher->hashPassword($admin, 'structure'))
+                ->setName("structureout")
+                /* ->setActivated('true') */
+                ->setRoles(['ROLE_STRUCTURE']);
+    
+        $manager->persist($structureout);
 
         $manager->flush();
     }
