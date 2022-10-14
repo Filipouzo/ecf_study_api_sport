@@ -32,7 +32,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $address = null;
     #[ORM\Column(nullable: true)]
-    private ?bool $activated = null;
+    private ?bool $activated = false;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'users')]
     private ?self $parent = null;

@@ -33,6 +33,8 @@ class CreationController extends AbstractController
             	// TODO  A revoir
                 //if(isset($parent)){}
 
+            $user->setActivated('true');
+
 
 /*             if ($userToAdmin == 'administrateur'){
                 $user->setRoles(['ROLE_ADMINISTRATEUR']);

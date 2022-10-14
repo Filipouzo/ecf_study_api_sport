@@ -22,6 +22,7 @@ class AppFixtures extends Fixture
         $admin = new User();
         $admin  ->setEmail("administrateur@exemple.com")
                 ->setPassword($this->hasher->hashPassword($admin, 'administrateur'))
+                ->setActivated('true')
                 ->setRoles(['ROLE_ADMINISTRATEUR']);
 
         $manager->persist($admin);
@@ -30,6 +31,7 @@ class AppFixtures extends Fixture
         $partenaire  ->setEmail("partenaire@exemple.com")
                 ->setPassword($this->hasher->hashPassword($admin, 'partenaire'))
                 ->setName("partenaire")
+                ->setActivated('true')
                 ->setRoles(['ROLE_PARTENAIRE']);
     
         $manager->persist($partenaire);
@@ -38,6 +40,7 @@ class AppFixtures extends Fixture
         $structure  ->setEmail("structure@exemple.com")
                 ->setPassword($this->hasher->hashPassword($admin, 'structure'))
                 ->setName("structure")
+                ->setActivated('true')
                 ->setRoles(['ROLE_STRUCTURE']);
     
         $manager->persist($structure);

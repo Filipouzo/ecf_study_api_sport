@@ -56,7 +56,7 @@ class UsersAuthenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($this->urlGenerator->generate('partenaire_accueil'));
         } 
         elseif (in_array("ROLE_STRUCTURE", $user->getRoles())) {
-            return new RedirectResponse($this->urlGenerator->generate('strcture_accueil'));
+            return new RedirectResponse($this->urlGenerator->generate('structure_accueil'));
         }
 
 
