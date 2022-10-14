@@ -20,7 +20,7 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $admin = new User();
-        $admin  ->setEmail("admin@exemple.com")
+        $admin  ->setEmail("administrateur@exemple.com")
                 ->setPassword($this->hasher->hashPassword($admin, 'administrateur'))
                 ->setRoles(['ROLE_ADMINISTRATEUR']);
 
