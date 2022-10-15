@@ -35,6 +35,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?bool $activated = false;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'users')]
+    #[ORM\JoinColumn(onDelete:'CASCADE')]
     private ?self $parent = null;
     #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
     private Collection $users;
@@ -47,13 +48,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private array $roles = [];
-
-    public function __construct()
-    {
-        $this->users = new ArrayCollection();
-        $this->globalOptions = new ArrayCollection();
-    }
-
 
     public function getId(): ?int
     {
