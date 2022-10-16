@@ -59,17 +59,29 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 //    /**
 //     * @return User[] Returns an array of User objects
 //     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('u')
-//            ->andWhere('u.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('u.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function findByRole($role)
+    {
+        $qb = $this->_em->createQueryBuilder();
+        $qb->select('u')
+            ->from($this->_entityName, 'u')
+            ->where('u.roles LIKE :roles')
+            ->setParameter('roles', '%"'.$role.'"%');
+
+        return $qb->getQuery()->getResult();
+    }
+
+        
+    public function findByParentId($value)
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.parent = :val')
+            ->setParameter('val', $value)
+            ->orderBy('u.address', 'ASC')
+            ->getQuery()
+            ->getResult();
+/*             ->getOneOrNullResult() */
+        ;
+    }
 
 //    public function findOneBySomeField($value): ?User
 //    {
@@ -90,18 +102,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getQuery()
             ->getResult();
     } */
-
-    public function findByRole($role)
-    {
-        $qb = $this->_em->createQueryBuilder();
-        $qb->select('u')
-            ->from($this->_entityName, 'u')
-            ->where('u.roles LIKE :roles')
-            ->setParameter('roles', '%"'.$role.'"%');
-    
-        return $qb->getQuery()->getResult();
-    }
-
 
 
 

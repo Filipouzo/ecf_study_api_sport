@@ -18,33 +18,30 @@ class AccueilController extends AbstractController
     #[Route('admin/accueil', name: 'administrateur_accueil')]
     public function administrateur_accueil(): Response
     {
-        $user = $this->getUser();
         return $this->render('pages/accueil.html.twig', [
             'pageName' => 'Accueil',
             'userRole' => 'administrateur',
-            'connectedUser' => $user
+            'connectedUser' => $this->getUser()
         ]);
     }
 
     #[Route('partenaire/accueil', name: 'partenaire_accueil')]
     public function partenaire_accueil(): Response
     {
-        $user = $this->getUser();
         return $this->render('pages/accueil.html.twig', [
             'pageName' => 'Accueil Partenaire',
             'userRole' => 'partenaire',
-            'connectedUser' => $user
+            'connectedUser' => $this->getUser()
         ]);
     }
 
     #[Route('structure/accueil', name: 'structure_accueil')]
     public function structure_accueil(): Response
     {
-        $user = $this->getUser();
         return $this->render('pages/accueil.html.twig', [
             'pageName' => 'Accueil Strcture',
             'userRole' => 'structure',
-            'connectedUser' => $user
+            'connectedUser' => $this->getUser()
         ]);
     }
 }

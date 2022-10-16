@@ -21,10 +21,14 @@ class AppFixtures extends Fixture
     {
         // * Fixture particulière parent
         $parent = $this-> createUserFixture(email: 'partenaire@exemple.com',password:'partenaire', name:'partenaire', address:'', activated:'true', role:'ROLE_PARTENAIRE' ,parent: null, manager: $manager);
+        $parent2 = $this-> createUserFixture(email: 'partenaire2@exemple.com',password:'partenaire', name:'partenaire2', address:'', activated:'true', role:'ROLE_PARTENAIRE' ,parent: null, manager: $manager);
         // * autres fixtures user
         $this-> createUserFixture(email: 'administrateur@exemple.com',password:'administrateur', name:'administrateur', address:'', activated:'true', role:'ROLE_ADMINISTRATEUR' ,parent: null, manager: $manager);
+        $this-> createUserFixture(email: 'administrateur2@exemple.com',password:'administrateur2', name:'administrateur2', address:'', activated:'true', role:'ROLE_ADMINISTRATEUR' ,parent: null, manager: $manager);
         $this-> createUserFixture(email: 'structure1@exemple.com',password:'structure', name:'', address:'structure1-City', activated:'true', role:'ROLE_STRUCTURE' ,parent:$parent, manager: $manager);
-        $this-> createUserFixture(email: 'structure2@exemple.com',password:'structure', name:'', address:'structure2-City', activated:'true', role:'ROLE_STRUCTURE' ,parent:$parent, manager: $manager);
+        $this-> createUserFixture(email: 'structure3@exemple.com',password:'structure', name:'', address:'structure3-City', activated:'true', role:'ROLE_STRUCTURE' ,parent:$parent, manager: $manager);
+        $this-> createUserFixture(email: 'structure2@exemple.com',password:'structure', name:'', address:'structure2-City', activated:'true', role:'ROLE_STRUCTURE' ,parent:$parent2, manager: $manager);
+        $this-> createUserFixture(email: 'structure4@exemple.com',password:'structure', name:'', address:'structure4-City', activated:'', role:'ROLE_STRUCTURE' ,parent:$parent2, manager: $manager);
         $this-> createUserFixture(email: 'structureout@exemple.com',password:'structure', name:'', address:'structure-désact-City', activated:'', role:'ROLE_STRUCTURE' ,parent:$parent, manager: $manager);
 
         $manager->flush();

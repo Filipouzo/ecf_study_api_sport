@@ -59,7 +59,7 @@ class CreationController extends AbstractController
 
         return $this->render('pages/creation.html.twig', [
             'registrationForm' => $form->createView(),
-            'pageName' => 'creation de '& $userToAdmin,
+            'pageName' => 'créer '.$userToAdmin,
             'userToCreate' => $userToAdmin,
 
         ]);
