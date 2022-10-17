@@ -10,13 +10,13 @@
 			<h3>Bienvenue <strong>{{ app.user.userIdentifier }}</strong> sur votre compte {{ userRole }}.</h3>
 
 			{% if is_granted('ROLE_ADMINISTRATEUR') %}
-					<a href="{{ path('administrateur_liste',{'userConnected' : 'administrateur','userToAdmin': 'administrateur' }) }}" class="btn btn-primary" >Gérer les administrateur</a>
-					<a href="{{  path('administrateur_liste',{'userConnected' : 'administrateur','userToAdmin': 'partenaire' })  }}" class="btn btn-primary">Gérer les partenaires</a>
-					<a href="{{ path('administrateur_liste',{'userConnected' : 'administrateur','userToAdmin': 'structure' }) }}" class="btn btn-primary">Gérer les structures</a>
+					<a href="{{ path('administrateur_liste',{'parentId' : '0','userToAdmin': 'administrateur' }) }}" class="btn btn-primary" >Gérer les administrateur</a>
+					<a href="{{ path('administrateur_liste',{'parentId' : '0','userToAdmin': 'partenaire' })  }}" class="btn btn-primary">Gérer les partenaires</a>
+					<a href="{{ path('administrateur_liste',{'parentId' : '0','userToAdmin': 'structure' }) }}" class="btn btn-primary">Gérer les structures</a>
 
 			{% elseif is_granted('ROLE_PARTENAIRE') %}
 					<a href="{# {{ path('') }} #}" class="btn btn-primary">Voir vos options globales</a>
-					<a href="{{ path('partenaire_liste_structure',{'userConnectedId' : connectedUser.id}) }}" class="btn btn-primary">Voir vos structures</a>
+					<a href="{{ path('partenaire_liste',{'connectedUserId' : connectedUser.id}) }}" class="btn btn-primary">Voir vos structures</a>
 
 			{% elseif is_granted('ROLE_STRUCTURE') %}
 					<a href="{# {{ path('') }} #}" class="btn btn-primary">Voir vos options</a>

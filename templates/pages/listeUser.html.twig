@@ -8,8 +8,11 @@
 
 		{# affichage Role administrateur #}
 		{% if is_granted('ROLE_ADMINISTRATEUR') %}
-
-		<h4>Liste des <strong>{{ userToAdmin }}s</strong> :</h4>
+			{% if parentId != '0' %}
+				<h4>Liste des <strong>{{ userToAdmin }}s </strong>de la franchise <strong>{{ parentName }}</strong> :</h4>
+			{% else %}
+				<h4>Liste des <strong>{{ userToAdmin }}s</strong> :</h4>
+			{% endif %}	
 
 			<div class="mt-5 row">
 				<div class="col-sm-12 col-lg-6">
@@ -28,12 +31,15 @@
 				<thead>
 					
 					{% if userToAdmin == 'structure' %}
-					<th>Franchise</th>
 					<th>Adresse</th>
+					<th>Franchise</th>
 					{% else %}
 					<th>Nom</th>
 					{% endif %}
 					<th>Email</th>
+					{% if userToAdmin == 'partenaire' %}
+						<th>détail</th>
+					{% endif %}
 					{% if userToAdmin != 'administrateur' %}
 					<th>Actif</th>
 					{% endif %}
@@ -44,17 +50,23 @@
 					{% for user in users %}
 						<tr>
 							{% if userToAdmin == 'structure' %}
-							<td>{{ user.parent.name }}</td>
 							<td>{{ user.address }}</td>
+							<td>{{ user.parent.name }}</td>
 							{% else %}
 							<td>{{ user.name }}</td>
 							{% endif %}
 
 							<td>{{ user.email }}</td>
+							{% if userToAdmin == 'partenaire' %}
+								<td>
+									<a href="{{ path('administrateur_liste', {'parentName' : user.name,'parentId' : user.id,'userToAdmin': 'structure' }) }}" class="btn btn-primary">détail</a>
+								</td>
+							{% endif %}
 							{% if userToAdmin != 'administrateur' %}
-							<td>
-								{{ user.activated ? 'OUI' : 'NON' }}
-							</td>
+
+								<td>
+									{{ user.activated ? 'OUI' : 'NON' }}
+								</td>
 							{% endif %}
 							<td>
 								{# TODO ajouter la réference du bouton #}
@@ -77,11 +89,21 @@
 				</tbody>
 			</table>
 			
-			<div class="mt-5 row">
-				<div class="col-sm-12 col-lg-6">
-					<a href="{{ path('administrateur_creation',{'userToAdmin': userToAdmin }) }}" class="btn btn-primary">Ajouter un nouvel  enregistrement : <strong>{{ userToAdmin }}</strong></a>
+			{% if userToAdmin != 'structure' %}
+				<div class="mt-5 row">
+					<div class="col-sm-12 col-lg-6">
+						<a href="{{ path('administrateur_creation',{'userToAdmin': userToAdmin }) }}" class="btn btn-primary">Ajouter un nouveau <strong>{{ userToAdmin }}</strong></a>
+					</div>
 				</div>
-			</div>
+			{% else %}
+				{% if parentId != '0' %}
+					<div class="mt-5 row">
+						<div class="col-sm-12 col-lg-6">
+							<a href="{{ path('administrateur_creation',{'parentName' : parentName,'parentId' : parentId,'userToAdmin': userToAdmin }) }}" class="btn btn-primary">Ajouter une nouvelle <strong>{{ userToAdmin }}</strong></a>
+						</div>
+					</div>
+				{% endif %}
+			{% endif %}
 		{% endif %}
 
 

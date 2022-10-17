@@ -26,7 +26,7 @@
 				{% if is_granted('ROLE_ADMINISTRATEUR') %}
 
 					<li class="nav-item">
-						<a class="nav-link active" href="{{ path('administrateur_liste',{'userToAdmin': 'administrateur' }) }}">
+						<a class="nav-link active" href="{{ path('administrateur_liste',{'userToAdmin': 'administrateur','parentId' : '0' }) }}">
 							<font style="vertical-align: inherit;">
 								<font style="vertical-align: inherit;">Administrateurs
 								</font>
@@ -40,7 +40,7 @@
 					</li>
 
 					<li class="nav-item">
-						<a class="nav-link" href="{{ path('administrateur_liste',{'userToAdmin': 'partenaire' }) }}">
+						<a class="nav-link" href="{{ path('administrateur_liste',{'userToAdmin': 'partenaire','parentId' : '0'  }) }}">
 							<font style="vertical-align: inherit;">
 								<font style="vertical-align: inherit;">Partenaires</font>
 							</font>
@@ -48,7 +48,7 @@
 					</li>
 
 					<li class="nav-item">
-						<a class="nav-link" href="{{ path('administrateur_liste',{'userToAdmin': 'structure' }) }}">
+						<a class="nav-link" href="{{ path('administrateur_liste',{'userToAdmin': 'structure','parentId' : '0'  }) }}">
 							<font style="vertical-align: inherit;">
 								<font style="vertical-align: inherit;">Structures</font>
 							</font>
