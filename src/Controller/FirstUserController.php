@@ -39,7 +39,20 @@ class FirstUserController extends AbstractController
 
 
             // TODO send an email
-
+                        // Sending mail
+/*                         $partnerMail = $partner->getEmail();
+                        $email = (new TemplatedEmail())
+                            ->from('brunod.dev@gmail.com')
+                            ->to($partnerMail)
+                            ->subject('Création de votre compte SportClub - '.(new \DateTime())->format('d m Y'))
+                            ->htmlTemplate('mail/creationPartnerAccountMail.html.twig')
+                            ->context([
+                                'newsletter_date' => new \DateTime(),
+                                'partner' => $partner,
+                            ])
+                        ;
+                        $mailer->send($email);
+ */
 
             return $this->redirectToRoute('app_login');
         }

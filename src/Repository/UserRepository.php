@@ -74,7 +74,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     public function findByParentId($value)
     {
         return $this->createQueryBuilder('u')
-            ->andWhere('u.parent = :val')
+            ->Where('u.parent = :val')
             ->setParameter('val', $value)
             ->orderBy('u.address', 'ASC')
             ->getQuery()

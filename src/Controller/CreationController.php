@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use App\Form\AdministatorType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,13 +21,22 @@ class CreationController extends AbstractController
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
+            dd ($form);
             // encode the plain password
-            $user->setPassword(
+/*             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
                     $form->get('plainPassword')->getData()
+                )
+            );    */
+            
+            // encode random password
+            $user->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $user,
+                    random_bytes(10)
                 )
             );
 
@@ -36,10 +46,8 @@ class CreationController extends AbstractController
             	// TODO  setParent   faire la gestion du parent                
                     //if(isset($parent)){}
 
-                // TODO  setPasseword ( enregistrer un Mot de passe aléatoire provisoire ) */
 
-
-/*             if ($userToAdmin == 'administrateur'){
+            if ($userToAdmin == 'administrateur'){
                 $user->setRoles(['ROLE_ADMINISTRATEUR']);
             }
             elseif ($userToAdmin == 'partenaire'){
@@ -47,14 +55,14 @@ class CreationController extends AbstractController
             }
             elseif ($userToAdmin == 'structure'){
                 $user->setRoles(['ROLE_STRUCTURE']);
-            } */
+            }
 
             $entityManager->persist($user);
             $entityManager->flush();
             // do anything else you need here, like send an email
 
             // TODO Redirection vers la liste à corriger
-            return $this->redirectToRoute('administrateur_liste', array('userToAdmin' => $userToAdmin));
+            return $this->redirectToRoute('administrateur_accueil', array('userToAdmin' => $userToAdmin));
         }
 
         return $this->render('pages/creation.html.twig', [

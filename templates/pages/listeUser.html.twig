@@ -93,14 +93,14 @@
 			{% if userToAdmin != 'structure' %}
 				<div class="mt-5 row">
 					<div class="col-sm-12 col-lg-6">
-						<a href="{{ path('administrateur_creation',{'userToAdmin': userToAdmin }) }}" class="btn btn-primary">Ajouter un nouveau <strong>{{ userToAdmin }}</strong></a>
+						<a href="{{ path('administrateur_creation',{'userToAdmin': userToAdmin }) }}" class="btn btn-primary">Ajouter un <strong>{{ userToAdmin }}</strong></a>
 					</div>
 				</div>
 			{% else %}
 				{% if parentId != '0' %}
 					<div class="mt-5 row">
 						<div class="col-sm-12 col-lg-6">
-							<a href="{{ path('administrateur_creation',{'parentName' : parentName,'parentId' : parentId,'userToAdmin': userToAdmin }) }}" class="btn btn-primary">Ajouter une nouvelle <strong>{{ userToAdmin }}</strong></a>
+							<a href="{{ path('administrateur_creation',{'parentName' : parentName,'parentId' : parentId,'userToAdmin': userToAdmin }) }}" class="btn btn-primary">Ajouter une <strong>{{ userToAdmin }}</strong></a>
 						</div>
 					</div>
 				{% endif %}
