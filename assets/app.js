@@ -12,4 +12,5 @@ import './styles/app.scss';
 import './bootstrap';
 
 
-import './js/script';
+import './js/valider';
+import './js/filtre';
