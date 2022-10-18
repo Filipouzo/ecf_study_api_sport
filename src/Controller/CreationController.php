@@ -48,13 +48,13 @@ class CreationController extends AbstractController
 
 
             if ($userToAdmin == 'administrateur'){
-                $user->setRoles(['ROLE_ADMINISTRATEUR']);
+                $user->setRoles(["ROLE_ADMINISTRATEUR"]);
             }
             elseif ($userToAdmin == 'partenaire'){
-                $user->setRoles(['ROLE_PARTENAIRE']);
+                $user->setRoles(["ROLE_PARTENAIRE"]);
             }
             elseif ($userToAdmin == 'structure'){
-                $user->setRoles(['ROLE_STRUCTURE']);
+                $user->setRoles(["ROLE_STRUCTURE"]);
             }
 
             $entityManager->persist($user);
@@ -62,7 +62,7 @@ class CreationController extends AbstractController
             // do anything else you need here, like send an email
 
             // TODO Redirection vers la liste à corriger
-            return $this->redirectToRoute('administrateur_accueil', array('userToAdmin' => $userToAdmin));
+            return $this->redirectToRoute('administrateur_liste', array('userToAdmin' => $userToAdmin));
         }
 
         return $this->render('pages/creation.html.twig', [

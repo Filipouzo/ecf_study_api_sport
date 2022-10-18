@@ -66,19 +66,16 @@
 							{% if userToAdmin != 'administrateur' %}
 
 								<td>
-									{{ user.activated ? 'OUI' : 'NON' }}
+									<div class="form-check form-switch">
+									<input class="form-check-input" type="checkbox" role="switch" {{ user.activated ? 'checked' : '' }} data-id="{{user.id}}">
+									<label class="form-check-label" for="flexSwitchCheckDefault"></label>
+									</div>
 								</td>
 							{% endif %}
 							<td>
 								{# TODO ajouter la réference du bouton #}
-								
-								{# <input type="image" id="rules" class="col h-100 p-1 pr-md-2" data-toggle="modal" data-target="#popupRules" src="{{ asset('/Pictures/logo.PNG') }}"> #}
-								{# <a href="{{ path('are_you_sure') }}" class="btn btn-warning">Supprimer</a> #}
-								<a  class="dt-button buttons-collection buttons-colvis btn btn-white btn-primary btn-bold"                     
-								data-toggle="modal"
-								data-target="#popupRules"
-								href="#"
-								>supprimer </a>
+
+								<a href="{{ path('suppression', {'id' : user.id,'userToAdmin': userToAdmin }) }}" class="btn btn-primary">Supprimer</a>
 							</td>
 						</tr>
 
@@ -157,3 +154,4 @@
 											{% endif %}
 										{% endfor %}
 									</td> #}
+									
