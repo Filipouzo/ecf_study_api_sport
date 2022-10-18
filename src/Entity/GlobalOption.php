@@ -62,9 +62,6 @@ class GlobalOption
         return $this;
     }
 
-    /**
-     * @return Collection<int, User>
-     */
     public function getIdAdmin(): Collection
     {
         return $this->id_admin;
@@ -92,9 +89,6 @@ class GlobalOption
         return $this;
     }
 
-    /**
-     * @return Collection<int, User>
-     */
     public function getIdPartner(): Collection
     {
         return $this->id_partner;

@@ -9,20 +9,17 @@
 	{% if app.user %}
 		<div class:"ms-auto">
 			<div>
-				Vous êtes
-
 				{% if is_granted('ROLE_ADMINISTRATEUR') %}
-					administrateur
+					{{ app.user.name}} (administrateur) 
 				{% elseif is_granted('ROLE_PARTENAIRE') %}
-					partenaire
+					{{ app.user.name }} (Franchise) 
 				{% elseif is_granted('ROLE_STRUCTURE') %}
-					une structure
+					Structure de la {{ app.user.address }}
 				{% endif %}
 			</div>
 			<div>
 				<a href="{{ path('app_logout') }}">Me déconnecter</a>
 			</div>
 		</div>
-
 	{% endif %}
 </div>

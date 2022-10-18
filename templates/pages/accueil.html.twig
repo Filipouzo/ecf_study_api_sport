@@ -1,29 +1,48 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ pageName }}{% endblock %}
+{% block title %}
+	{{ pageName }}
+{% endblock %}
 
 {% block body %}
 	{% include "partials/_navbar.html.twig" %}
 
 	<div class="wrapper">
 		{% if connectedUser.activated %}
-			<h3>Bienvenue <strong>{{ app.user.userIdentifier }}</strong> sur votre compte {{ userRole }}.</h3>
 
 			{% if is_granted('ROLE_ADMINISTRATEUR') %}
-					<a href="{{ path('administrateur_liste',{'parentId' : '0','userToAdmin': 'administrateur' }) }}" class="btn btn-primary" >Gérer les administrateur</a>
-					<a href="{{ path('administrateur_liste',{'parentId' : '0','userToAdmin': 'partenaire' })  }}" class="btn btn-primary">Gérer les partenaires</a>
+				<h3>Bienvenue
+					<strong>{{ app.user.name }}</strong>
+				</h3>
+				<h4>Vous êtes sur votre compte 
+					<strong>administrateur</strong></h4>
+				<div class="m-3">
+					<a href="{{ path('administrateur_liste',{'parentId' : '0','userToAdmin': 'administrateur' }) }}" class="btn btn-primary">Gérer les administrateur</a>
+					<a href="{{ path('administrateur_liste',{'parentId' : '0','userToAdmin': 'partenaire' }) }}" class="btn btn-primary">Gérer les partenaires</a>
 					<a href="{{ path('administrateur_liste',{'parentId' : '0','userToAdmin': 'structure' }) }}" class="btn btn-primary">Gérer les structures</a>
+				</div>
 
 			{% elseif is_granted('ROLE_PARTENAIRE') %}
-					<a href="{# {{ path('') }} #}" class="btn btn-primary">Voir vos options globales</a>
-					<a href="{{ path('partenaire_liste',{'connectedUserId' : connectedUser.id}) }}" class="btn btn-primary">Voir vos structures</a>
+				<h3>Franchise de
+					<strong>{{ app.user.name }}</strong>
+				</h3>
+				<div class="m-3">
+					<a href="{{ path('partenaire_liste',{'connectedUserId' : connectedUser.id}) }}" class="btn btn-primary">Vos structures</a>
+					<a href="{# {{ path('') }} #}" class="btn btn-primary">Vos options globales</a>
+				</div>
 
 			{% elseif is_granted('ROLE_STRUCTURE') %}
-					<a href="{# {{ path('') }} #}" class="btn btn-primary">Voir vos options</a>
-			{% endif %}
+				<h3>Structure de la <strong>{{ app.user.address }}</strong>
+			</h3>
+			<div class="m-3">
+				<a href="{# {{ path('') }} #}" class="btn btn-primary">Voir vos options</a>
+			</div>
+		{% endif %}
 
 		{% else %}
-			<h1 class="text-center alert alert-danger"> Votre Compte est désactivé </h1>
+			<h1 class="text-center alert alert-danger">
+				Votre Compte est désactivé
+			</h1>
 		{% endif %}
 	</div>
 {% endblock %}

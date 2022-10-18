@@ -9,9 +9,10 @@
 		{# affichage Role administrateur #}
 		{% if is_granted('ROLE_ADMINISTRATEUR') %}
 			{% if parentId != '0' %}
-				<h4>Liste des <strong>{{ userToAdmin }}s </strong>de la franchise <strong>{{ parentName }}</strong> :</h4>
+				<h1>Liste des <strong>{{ userToAdmin }}s </strong></h1>
+				<h2>franchise de <strong>{{ parentName }}</strong></h2>
 			{% else %}
-				<h4>Liste des <strong>{{ userToAdmin }}s</strong> :</h4>
+				<h1>Liste des <strong>{{ userToAdmin }}s</strong></h1>
 			{% endif %}	
 
 			<div class="mt-5 row">
@@ -117,7 +118,7 @@
 				<thead>
 					<th>Adresse</th>
 					<th>Email</th>
-					<th>Actif</th>
+					<th>Active</th>
 				</thead>
 
 				<tbody>

@@ -53,8 +53,9 @@ class ListeController extends AbstractController
     }
 
     #[Route('partenaire/liste/structure', name: 'partenaire_liste')]
-    public function partenaireList(UserRepository $users, $connectedUserId)
+    public function partenaireList(Request $request, UserRepository $users)
     {
+        $connectedUserId = $request->query->get('connectedUserId');
         return $this->render("pages/listeUser.html.twig", [
             'users' => $users->findByParentId($connectedUserId),
             'pageName' => 'liste structure',
@@ -64,5 +65,4 @@ class ListeController extends AbstractController
         ]);
     }
 }
-
 
