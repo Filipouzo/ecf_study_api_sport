@@ -1,19 +1,29 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ pageName }}{% endblock %}
+{% block title %}
+	{{ pageName }}
+{% endblock %}
 
 {% block body %}
 	{% include "partials/_navbar.html.twig" %}
-	<div class="wrapper">
+	<div
+		class="wrapper">
 
 		{# affichage Role administrateur #}
 		{% if is_granted('ROLE_ADMINISTRATEUR') %}
 			{% if parentId != '0' %}
-				<h1>Liste des <strong>{{ userToAdmin }}s </strong></h1>
-				<h2>franchise de <strong>{{ parentName }}</strong></h2>
+				<h1>Liste des
+					<strong>{{ userToAdmin }}s
+					</strong>
+				</h1>
+				<h2>franchise de
+					<strong>{{ parentName }}</strong>
+				</h2>
 			{% else %}
-				<h1>Liste des <strong>{{ userToAdmin }}s</strong></h1>
-			{% endif %}	
+				<h1>Liste des
+					<strong>{{ userToAdmin }}s</strong>
+				</h1>
+			{% endif %}
 
 			<div class="mt-5 row">
 				<div class="col-sm-12 col-lg-6">
@@ -30,19 +40,19 @@
 
 			<table class="mt-5 table">
 				<thead>
-					
+
 					{% if userToAdmin == 'structure' %}
-					<th>Adresse</th>
-					<th>Franchise</th>
+						<th>Adresse</th>
+						<th>Franchise</th>
 					{% else %}
-					<th>Nom</th>
+						<th>Nom</th>
 					{% endif %}
 					<th>Email</th>
 					{% if userToAdmin == 'partenaire' %}
 						<th>détail</th>
 					{% endif %}
 					{% if userToAdmin != 'administrateur' %}
-					<th>Actif</th>
+						<th>Actif</th>
 					{% endif %}
 					<th>Supprimer</th>
 				</thead>
@@ -51,10 +61,10 @@
 					{% for user in users %}
 						<tr>
 							{% if userToAdmin == 'structure' %}
-							<td>{{ user.address }}</td>
-							<td>{{ user.parent.name }}</td>
+								<td>{{ user.address }}</td>
+								<td>{{ user.parent.name }}</td>
 							{% else %}
-							<td>{{ user.name }}</td>
+								<td>{{ user.name }}</td>
 							{% endif %}
 
 							<td>{{ user.email }}</td>
@@ -67,15 +77,30 @@
 
 								<td>
 									<div class="form-check form-switch">
-									<input class="form-check-input" type="checkbox" role="switch" {{ user.activated ? 'checked' : '' }} data-id="{{user.id}}">
-									<label class="form-check-label" for="flexSwitchCheckDefault"></label>
+										<input class="form-check-input" type="checkbox" role="switch" {{ user.activated ? 'checked' : '' }} data-id="{{user.id}}">
+										<label class="form-check-label" for="flexSwitchCheckDefault"></label>
 									</div>
 								</td>
 							{% endif %}
 							<td>
-								{# TODO ajouter la réference du bouton #}
-
-								<a href="{{ path('suppression', {'id' : user.id,'userToAdmin': userToAdmin }) }}" class="btn btn-primary">Supprimer</a>
+								<a type="button" id="modalSup" class="btn btn-primary modalSup" data-bs-toggle="modal" data-bs-target="#modalConfirmation" class="btn btn-primary">Supprimer</a>
+								{# Modal #}
+								<div class="modal fade" data-bs-backdrop="static" id="modalConfirmation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									<div class="modal-dialog modal-sm" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="exampleModalLabel">confirmer la suppression</h5>
+												<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+												<a type="button" class="btn btn-primary modal-success-btn" href="{{ path('suppression', {'id' : user.id,'userToAdmin': userToAdmin, 'parentId': parentId }) }}" ;>Supprimer</a>
+											</div>
+										</div>
+									</div>
+								</div>
 							</td>
 						</tr>
 
@@ -86,18 +111,22 @@
 					{% endfor %}
 				</tbody>
 			</table>
-			
+
 			{% if userToAdmin != 'structure' %}
 				<div class="mt-5 row">
 					<div class="col-sm-12 col-lg-6">
-						<a href="{{ path('administrateur_creation',{'userToAdmin': userToAdmin }) }}" class="btn btn-primary">Ajouter un <strong>{{ userToAdmin }}</strong></a>
+						<a href="{{ path('administrateur_creation',{'userToAdmin': userToAdmin }) }}" class="btn btn-primary">Ajouter un
+							<strong>{{ userToAdmin }}</strong>
+						</a>
 					</div>
 				</div>
 			{% else %}
 				{% if parentId != '0' %}
 					<div class="mt-5 row">
 						<div class="col-sm-12 col-lg-6">
-							<a href="{{ path('administrateur_creation',{'parentName' : parentName,'parentId' : parentId,'userToAdmin': userToAdmin }) }}" class="btn btn-primary">Ajouter une <strong>{{ userToAdmin }}</strong></a>
+							<a href="{{ path('administrateur_creation',{'parentName' : parentName,'parentId' : parentId,'userToAdmin': userToAdmin }) }}" class="btn btn-primary">Ajouter une
+								<strong>{{ userToAdmin }}</strong>
+							</a>
 						</div>
 					</div>
 				{% endif %}
@@ -105,53 +134,46 @@
 		{% endif %}
 
 
-
 		{# affichage Role partenaire #}
 		{% if is_granted('ROLE_PARTENAIRE') %}
 
-		<h4>Liste de vos structures</strong> :</h4>
+			<h4>Liste de vos structures</strong>
+			:</h4>
 
-			<table class="mt-5 table">
-				<thead>
-					<th>Adresse</th>
-					<th>Email</th>
-					<th>Active</th>
-				</thead>
+		<table class="mt-5 table">
+			<thead>
+				<th>Adresse</th>
+				<th>Email</th>
+				<th>Active</th>
+			</thead>
 
-				<tbody>
-					{% for user in users %}
-						<tr>
-							<td>{{ user.address }}</td>
-							<td>{{ user.email }}</td>
-							<td>
-								{{ user.activated ? 'OUI' : 'NON' }}
-							</td>
-						</tr>
+			<tbody>
+				{% for user in users %}
+					<tr>
+						<td>{{ user.address }}</td>
+						<td>{{ user.email }}</td>
+						<td>
+							{{ user.activated ? 'OUI' : 'NON' }}
+						</td>
+					</tr>
 
-					{% else %}
-						<tr>
-							<td>Il n'y a pas d'enregistrement pour ce tableau</td>
-						</tr>
-					{% endfor %}
-				</tbody>
-			</table>
-		{% endif %}
-	</div>
-{% endblock %}
-
-
-
-
-{# Code de vérification Role
-								<td>
-										{% for role in user.roles %}
-											{% if role == "ROLE_ADMINISTRATEUR" %}
-												Administrateur
-											{% elseif role == "ROLE_PARTENAIRE" %}
-												Partenaire
-											{% elseif role == "ROLE_STRUCTURE" %}
-												Structure
-											{% endif %}
-										{% endfor %}
-									</td> #}
-									
+				{% else %}
+					<tr>
+						<td>Il n'y a pas d'enregistrement pour ce tableau</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	{% endif %}
+</div>{% endblock %}{# Code de vérification Role
+									<td>
+											{% for role in user.roles %}
+												{% if role == "ROLE_ADMINISTRATEUR" %}
+													Administrateur
+												{% elseif role == "ROLE_PARTENAIRE" %}
+													Partenaire
+												{% elseif role == "ROLE_STRUCTURE" %}
+													Structure
+												{% endif %}
+											{% endfor %}
+										</td> #}

@@ -17,8 +17,8 @@ class ListeController extends AbstractController
 {
     #[Route('administrateur/liste/{userToAdmin}', name: 'administrateur_liste')]
     public function adminList(Request $request, UserRepository $users, $userToAdmin)
-    {
-        $parentId = $request->query->get('parentId');
+    {        $parentId = $request->query->get('parentId');
+
         $parentName = $request->query->get('parentName');
 
         if ($parentId !='0') {

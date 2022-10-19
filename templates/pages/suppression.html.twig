@@ -1,4 +1,12 @@
-<form method="post" action="{{ path('suppression', {'id': user.id}) }}" onsubmit="return confirm('Êtes-vous certain de vouloir supprimer cet enregistrement ?');">
+{# <form method="post" action="{{ path('suppression', {'id': user.id}) }}" onsubmit="return confirm('Êtes-vous certain de vouloir supprimer cet enregistrement ?');">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
-    <button class="btn">Delete</button>
+    <button class="btn">Supprimer</button>
+</form> #}
+
+
+<form action="{{ url('suppression', { id: post.id }) }}" method="post"  onsubmit="return confirm('Êtes-vous certain de vouloir supprimer cet enregistrement ?');>
+    {# the argument of csrf_token() is an arbitrary string used to generate the token #}
+    <input type="hidden" name="token" value="{{ csrf_token('delete-item') }}"/>
+
+    <button type="submit">Delete item</button>
 </form>
