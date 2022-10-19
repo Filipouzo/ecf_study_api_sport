@@ -22,6 +22,7 @@ class AppFixtures extends Fixture
         // * Fixture particulière parent
         $parent = $this-> createUserFixture(email: 'partenaire@exemple.com',password:'partenaire', name:'Toulouse', address:'', activated:'true', role:'ROLE_PARTENAIRE' ,parent: null, manager: $manager);
         $parent2 = $this-> createUserFixture(email: 'partenaire2@exemple.com',password:'partenaire', name:'Paris', address:'', activated:'true', role:'ROLE_PARTENAIRE' ,parent: null, manager: $manager);
+        $parent3 = $this-> createUserFixture(email: 'partenaire3@exemple.com',password:'partenaire', name:'Lyon', address:'', activated:'true', role:'ROLE_PARTENAIRE' ,parent: null, manager: $manager);
         // * autres fixtures user
         $this-> createUserFixture(email: 'administrateur@exemple.com',password:'administrateur', name:'Philippe', address:'', activated:'true', role:'ROLE_ADMINISTRATEUR' ,parent: null, manager: $manager);
         $this-> createUserFixture(email: 'administrateur2@exemple.com',password:'administrateur2', name:'OLivier', address:'', activated:'true', role:'ROLE_ADMINISTRATEUR' ,parent: null, manager: $manager);
@@ -30,6 +31,11 @@ class AppFixtures extends Fixture
         $this-> createUserFixture(email: 'structure2@exemple.com',password:'structure', name:'', address:'rue de la Paix', activated:'true', role:'ROLE_STRUCTURE' ,parent:$parent2, manager: $manager);
         $this-> createUserFixture(email: 'structure4@exemple.com',password:'structure', name:'', address:'rue de Rivoli', activated:'', role:'ROLE_STRUCTURE' ,parent:$parent2, manager: $manager);
         $this-> createUserFixture(email: 'structureout@exemple.com',password:'structure', name:'', address:'rue de la colombette', activated:'', role:'ROLE_STRUCTURE' ,parent:$parent, manager: $manager);
+        $this-> createUserFixture(email: 'structure5@exemple.com',password:'structure', name:'', address:'rue du paradis ', activated:'true', role:'ROLE_STRUCTURE' ,parent:$parent3, manager: $manager);
+        $this-> createUserFixture(email: 'structure6@exemple.com',password:'structure', name:'', address:'rue de la soif', activated:'true', role:'ROLE_STRUCTURE' ,parent:$parent3, manager: $manager);
+        $this-> createUserFixture(email: 'structure7@exemple.com',password:'structure', name:'', address:'rue du peuple', activated:'true', role:'ROLE_STRUCTURE' ,parent:$parent3, manager: $manager);
+        $this-> createUserFixture(email: 'structure8@exemple.com',password:'structure', name:'', address:'rue de sevre', activated:'', role:'ROLE_STRUCTURE' ,parent:$parent3, manager: $manager);
+        $this-> createUserFixture(email: 'structure9@exemple.com',password:'structure', name:'', address:'rue du touch', activated:'', role:'ROLE_STRUCTURE' ,parent:$parent3, manager: $manager);
 
         $manager->flush();
     }
@@ -51,47 +57,3 @@ class AppFixtures extends Fixture
         return $user; // pour la fonction parent
     }
 }
-
-
-/*    // *Ancien code avant optimisation
-
-        $admin = new User();
-        $admin  ->setEmail("administrateur@exemple.com")
-                ->setPassword($this->hasher->hashPassword($admin, 'administrateur'))
-                ->setActivated('true')
-                ->setRoles(['ROLE_ADMINISTRATEUR']);
-        $manager->persist($admin);
-
-        $partenaire = new User();
-        $partenaire  
-                ->setEmail("partenaire@exemple.com")
-                ->setPassword($this->hasher->hashPassword($admin, 'partenaire'))
-                ->setName("partenaire")
-                ->setActivated('true')
-                ->setRoles(['ROLE_PARTENAIRE']);
-        $manager->persist($partenaire);
-
-        $structurein1 = new User();
-        $structurein1  ->setEmail("structure1@exemple.com")
-                ->setPassword($this->hasher->hashPassword($admin, 'structure'))
-                ->setName("structure1")
-                ->setActivated('true')
-                ->setRoles(['ROLE_STRUCTURE'])
-                ->setParent($partenaire);
-        $manager->persist($structurein1);
-
-        $structurein2 = new User();
-        $structurein2 ->setEmail("structure2@exemple.com")
-                ->setPassword($this->hasher->hashPassword($admin, 'structure'))
-                ->setName("structure2")
-                ->setActivated('true')
-                ->setRoles(['ROLE_STRUCTURE'])
-                ->setParent($partenaire);
-        $manager->persist($structurein2);
-
-        $structureout = new User();
-        $structureout  ->setEmail("structureout@exemple.com")
-                ->setPassword($this->hasher->hashPassword($admin, 'structure'))
-                ->setName("structure-désact")
-                ->setRoles(['ROLE_STRUCTURE']);
-        $manager->persist($structureout); */
