@@ -17,4 +17,4 @@ import Alert from 'bootstrap/js/dist/alert';
 
 
 import './js/activation';
-import './js/filtre';
+import './js/filtres';
