@@ -10,13 +10,7 @@
     <section class="container">
         <div class="row">
             <div class="col">
-                
-		        <h1>Nouvel enregistrement {{ userToCreate}}</h1>
-
-
-{#                {{ form_start(registrationForm) }}
-                {{ form_end(registrationForm) }} #}
-
+		        <h1>Nouvel enregistrement d'un(e) {{ userToCreate}}</h1>
 
 					{% if userToCreate == 'administrateur' or userToCreate == 'partenaire'%}
                     {{ form_row(registrationForm.name) }}
@@ -27,12 +21,7 @@
                     {{ form_row(registrationForm.email) }}
 
                     <button type="submit" class="btn btn-primary mt-3">Enregistrer</button>                 
-
             </div>
         </div>
     </section>
-
-
 {% endblock %}
-
-{#    {{ form_row(registrationForm.plainPassword) }} #}

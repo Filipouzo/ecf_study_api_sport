@@ -4,8 +4,6 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -48,13 +46,13 @@ class RegistrationFormType extends AbstractType
                     'placeholder' => 'E-mail',
                     'class' => 'form-control'
                 ]
-                ])
+                ]);
 
 /*             ->add('parent', TextType::class, [
                 ]
             ]) */
 
-            ->add('plainPassword', PasswordType::class, [
+/*             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
@@ -76,7 +74,7 @@ class RegistrationFormType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
-            ]);
+            ]); */
     }
 
     public function configureOptions(OptionsResolver $resolver): void
