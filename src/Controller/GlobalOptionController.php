@@ -24,8 +24,6 @@ class GlobalOptionController extends AbstractController
     #[Route('/new', name: 'app_global_option_new', methods: ['GET', 'POST'])]
     public function new(Request $request, GlobalOptionRepository $globalOptionRepository): Response
     {
-        dd('salut');
-
         $globalOption = new GlobalOption();
         $form = $this->createForm(GlobalOptionType::class, $globalOption);
         dd($form->isSubmitted());
