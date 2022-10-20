@@ -6,31 +6,31 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
-use App\Form\AdministatorType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CreationController extends AbstractController
 {
-    #[Route('{userToAdmin}/creation', name: 'administrateur_creation')]
+    #[Route('administrateur/{userToAdmin}/creation', name: 'administrateur_creation')]
     public function creation(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, $userToAdmin): Response
     {
+        dd('salut');
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
         
+
+
         if ($form->isSubmitted() && $form->isValid()) {
-            dd ($form);
             // encode the plain password
-/*             $user->setPassword(
+            $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 )
-            );    */
+            );   
             
             // encode random password
             $user->setPassword(
@@ -69,7 +69,6 @@ class CreationController extends AbstractController
             'registrationForm' => $form->createView(),
             'pageName' => 'créer '.$userToAdmin,
             'userToCreate' => $userToAdmin,
-
         ]);
     }
 }

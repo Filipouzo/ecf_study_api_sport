@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New GlobalOption{% endblock %}
+
+{% block body %}
+    <h1>Create new GlobalOption</h1>
+
+    {{ include('global_option/_form.html.twig') }}
+
+    <a href="{{ path('app_global_option_index') }}">back to list</a>
+{% endblock %}

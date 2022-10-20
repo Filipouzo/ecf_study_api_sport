@@ -3,25 +3,23 @@
 {% block title %}{{ pageName }}{% endblock %}
 
 {% block body %}
-
-
 	{% include "partials/_navbar.html.twig" %}
 
-    <section class="container">
+	<div class="wrapper mt-5 p-3">
         <div class="row">
             <div class="col">
 		        <h1>Nouvel enregistrement d'un(e) {{ userToCreate}}</h1>
 
-					{% if userToCreate == 'administrateur' or userToCreate == 'partenaire'%}
-                    {{ form_row(registrationForm.name) }}
-					{% endif %}
-					{% if userToCreate == 'structure'%}
-                    {{ form_row(registrationForm.address) }}
-					{% endif %}
-                    {{ form_row(registrationForm.email) }}
+                {% if userToCreate == 'administrateur' or userToCreate == 'partenaire'%}
+                {{ form_row(registrationForm.name) }}
+                {% endif %}
+                {% if userToCreate == 'structure'%}
+                {{ form_row(registrationForm.address) }}
+                {% endif %}
+{#                 {{ form_row(registrationForm.email) }} #}
 
-                    <button type="submit" class="btn btn-primary mt-3">Enregistrer</button>                 
-            </div>
+                <button type="submit" class="btn btn-primary mt-3">Enregistrer</button>                 
         </div>
-    </section>
+        </div>
+    </div>
 {% endblock %}

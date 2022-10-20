@@ -20,12 +20,11 @@ class AccueilController extends AbstractController
     {
         return $this->render('pages/accueil.html.twig', [
             'pageName' => 'Accueil',
-            'userRole' => 'administrateur',
             'connectedUser' => $this->getUser()
         ]);
     }
 
-    #[Route('partenaire/accueil', name: 'partenaire_accueil')]
+/*     #[Route('partenaire/accueil', name: 'partenaire_accueil')]
     public function partenaire_accueil(): Response
     {
         return $this->render('pages/accueil.html.twig', [
@@ -43,5 +42,5 @@ class AccueilController extends AbstractController
             'userRole' => 'structure',
             'connectedUser' => $this->getUser()
         ]);
-    }
+    } */
 }

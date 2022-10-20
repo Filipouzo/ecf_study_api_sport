@@ -1,14 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}
-	{{ pageName }}
-{% endblock %}
+{% block title %}{{ pageName }}{% endblock %}
 
 {% block body %}
 	{% include "partials/_navbar.html.twig" %}
-	<div
-		class="wrapper">
-
+	<div class="wrapper">
 		{# affichage Role administrateur #}
 		{% if is_granted('ROLE_ADMINISTRATEUR') %}
 			{% if parentId != '0' %}
@@ -28,12 +24,8 @@
 			<div class="mt-5 row">
 				<div class="col-sm-12 col-lg-6">
 					<form class="d-flex">
-						<input class="form-control me-sm-2" type="text" placeholder="Chercher">
-						<button class="btn btn-secondary my-2 my-sm-0" type="submit">
-							<font style="vertical-align: inherit;">
-								<font style="vertical-align: inherit;">Chercher</font>
-							</font>
-						</button>
+						<input class=" me-sm-2" type="text" placeholder="Chercher">
+						<button class="btn btn-secondary my-2 my-sm-0" type="submit">>Chercher</button>
 					</form>
 				</div>
 			</div>
@@ -115,8 +107,8 @@
 			{% if userToAdmin != 'structure' %}
 				<div class="mt-5 row">
 					<div class="col-sm-12 col-lg-6">
-						<a href="{{ path('administrateur_creation',{'userToAdmin': userToAdmin }) }}" class="btn btn-primary">Ajouter un
-							<strong>{{ userToAdmin }}</strong>
+						<a href="{{ path('administrateur_creation', {'userToAdmin' : userToAdmin}) }}"	class="btn btn-primary">
+							Ajouter un <strong>{{ userToAdmin }}</strong>
 						</a>
 					</div>
 				</div>
@@ -166,14 +158,14 @@
 		</table>
 	{% endif %}
 </div>{% endblock %}{# Code de vérification Role
-									<td>
-											{% for role in user.roles %}
-												{% if role == "ROLE_ADMINISTRATEUR" %}
-													Administrateur
-												{% elseif role == "ROLE_PARTENAIRE" %}
-													Partenaire
-												{% elseif role == "ROLE_STRUCTURE" %}
-													Structure
-												{% endif %}
-											{% endfor %}
-										</td> #}
+										<td>
+												{% for role in user.roles %}
+													{% if role == "ROLE_ADMINISTRATEUR" %}
+														Administrateur
+													{% elseif role == "ROLE_PARTENAIRE" %}
+														Partenaire
+													{% elseif role == "ROLE_STRUCTURE" %}
+														Structure
+													{% endif %}
+												{% endfor %}
+											</td> #}
