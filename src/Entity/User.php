@@ -45,7 +45,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: GlobalOption::class, mappedBy: 'id_partner')]
     private Collection $globalOptions;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column]
     private array $roles = [];
 
     public function getId(): ?int
@@ -132,7 +132,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setParent(?self $parent): self
     {
         $this->parent = $parent;
-
         return $this;
     }
 

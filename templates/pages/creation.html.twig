@@ -10,16 +10,16 @@
             <div class="col">
 		        <h1>Nouvel enregistrement d'un(e) {{ userToCreate}}</h1>
 
-{#                         {{ form(registrationForm) }} #}
+                        {{ form(registrationForm) }}
 
-                {% if userToCreate == 'administrateur' or userToCreate == 'partenaire'%}  
+{#                 {% if userToCreate == 'administrateur' or userToCreate == 'partenaire'%}  
                     <form>                      
-                    {# {{form_start(registrationForm)}} #}
+
                     {{ form_row(registrationForm.name) }}
                     {{ form_row(registrationForm.email) }}
 
                     <button type="submit" class="btn btn-primary mt-3">Enregistrer</button>       
-                    {# {{ form_end(registrationForm) }} #}
+
                     </form>  
                 {% endif %}
                 {% if userToCreate == 'structure'%}
@@ -28,7 +28,7 @@
                     {{ form_row(registrationForm.email) }}
                     <button type="submit" class="btn btn-primary mt-3">Enregistrer</button>       
                     {{ form_end(registrationForm) }}
-                {% endif %}
+                {% endif %} #}
 
 
 

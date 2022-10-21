@@ -17,14 +17,15 @@ class ListeController extends AbstractController
 {
     #[Route('administrateur/liste/{userToAdmin}', name: 'administrateur_liste')]
     public function adminList(Request $request, UserRepository $users, $userToAdmin)
-    {        $parentId = $request->query->get('parentId');
-
+    {        
+        
+        $parentId = $request->query->get('parentId');
         $parentName = $request->query->get('parentName');
 
         if ($parentId !='0') {
             return $this->render("pages/listeUser.html.twig", [
                 'users' => $users->findByParentId($parentId),
-                'parentName' => $users->findById($parentId),
+                /* 'parentName' => $users->findById($parentId), */
                 'pageName' => 'liste structure',
                 'userToAdmin' => $userToAdmin,
                 'parentId' => $parentId,

@@ -77,18 +77,9 @@
 								</td>
 							{% endif %}
 
-
-
-
-
 							<td>
-
-
+								{# Bouton de se suppression avec modal Stimulus #}
 								<div {{ stimulus_controller('modal-form')}}>
-								
-								{# ,{
-									formUrl: path('suppression', {'userId' : user.Id,'userToAdmin': userToAdmin, 'parentId': parentId })
-								})  #}
 
 									<button
 										class="btn btn-primary btn-sm"
@@ -101,14 +92,7 @@
 									}) 
 									}}
 								</div>
-
-
-
 							</td>
-
-
-
-
 						</tr>
 
 					{% else %}
@@ -119,20 +103,23 @@
 				</tbody>
 			</table>
 
+			
 			{% if userToAdmin != 'structure' %}
+				{# Création d'un administrateur ou d'un partenaire  #}
 				<div class="mt-5 row">
 					<div class="col-sm-12 col-lg-6">
-						<a href="{{ path('administrateur_creation', {'userToAdmin' : userToAdmin}) }}"	class="btn btn-primary">
+						<a href="{{ path('administrateur_creation', {'userToAdmin' : userToAdmin,'parentId' : '0'}) }}"	class="btn btn-primary">
 							Ajouter un <strong>{{ userToAdmin }}</strong>
 						</a>
 					</div>
 				</div>
 			{% else %}
 				{% if parentId != '0' %}
+				{# Création d'une structure  #}
 					<div class="mt-5 row">
 						<div class="col-sm-12 col-lg-6">
-							<a href="{{ path('administrateur_creation',{'parentName' : parentName,'parentId' : parentId,'userToAdmin': userToAdmin }) }}" class="btn btn-primary">Ajouter une
-								<strong>{{ userToAdmin }}</strong>
+							<a href="{{ path('administrateur_creation',{'parentName' : parentName,'parentId' : parentId,'userToAdmin': userToAdmin }) }}" class="btn btn-primary">
+								Ajouter une	<strong>sructure</strong> à cette franchise.
 							</a>
 						</div>
 					</div>
@@ -144,34 +131,32 @@
 		{# affichage Role partenaire #}
 		{% if is_granted('ROLE_PARTENAIRE') %}
 
-			<h4>Liste de vos structures</strong>
-			:</h4>
+			<h4>Liste de vos structures</strong> :</h4>
 
-		<table class="mt-5 table">
-			<thead>
-				<th>Adresse</th>
-				<th>Email</th>
-				<th>Active</th>
-			</thead>
+			<table class="mt-5 table">
+				<thead>
+					<th>Adresse</th>
+					<th>Email</th>
+					<th>Active</th>
+				</thead>
+				<tbody>
+					{% for user in users %}
+						<tr>
+							<td>{{ user.address }}</td>
+							<td>{{ user.email }}</td>
+							<td>
+								{{ user.activated ? 'OUI' : 'NON' }}
+							</td>
+						</tr>
 
-			<tbody>
-				{% for user in users %}
-					<tr>
-						<td>{{ user.address }}</td>
-						<td>{{ user.email }}</td>
-						<td>
-							{{ user.activated ? 'OUI' : 'NON' }}
-						</td>
-					</tr>
-
-				{% else %}
-					<tr>
-						<td>Il n'y a pas d'enregistrement pour ce tableau</td>
-					</tr>
-				{% endfor %}
-			</tbody>
-		</table>
-	{% endif %}
+					{% else %}
+						<tr>
+							<td>Il n'y a pas d'enregistrement pour ce tableau</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		{% endif %}
 
 {% endblock %}
 
