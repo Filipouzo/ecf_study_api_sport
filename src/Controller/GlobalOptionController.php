@@ -26,7 +26,6 @@ class GlobalOptionController extends AbstractController
     {
         $globalOption = new GlobalOption();
         $form = $this->createForm(GlobalOptionType::class, $globalOption);
-        dd($form->isSubmitted());
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

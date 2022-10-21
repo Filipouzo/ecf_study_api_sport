@@ -10,6 +10,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+
 
 class RegistrationFormType extends AbstractType
 {
@@ -44,15 +47,29 @@ class RegistrationFormType extends AbstractType
                     'placeholder' => 'E-mail',
                     'class' => 'form-control'
                 ]
-                ]);
+            ])
+
+            ->add('parent', HiddenType::class, [
+                'mapped' => false
+            ])
+
+            ->add('password', HiddenType::class, [
+                'mapped' => false
+            ])
+            ->add('roles', HiddenType::class, [
+                'mapped' => false
+            ])
+
+            ->add('enrgistrer', SubmitType::class, [
+                'label' => 'Enregister'
+            ]);
+
 
 /*             ->add('parent', TextType::class, [
                 ]
             ]) */
 
 /*             ->add('plainPassword', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
                 'mapped' => false,
                 'required' => false,
                 'label' => 'Entrer votre mot de passe',
@@ -68,11 +85,11 @@ class RegistrationFormType extends AbstractType
                     new Length([
                         'min' => 6,
                         'minMessage' => 'Votre mot de passe doit contenir au moins {{ limit }} caractères',
-                        // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
                 ],
             ]); */
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

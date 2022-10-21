@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}{{ pageName }}{% endblock %}
+{# {% block javascripts %}{{ parent() }}{% endblock javascripts %} #}
 
 {% block body %}
 	{% include "partials/_navbar.html.twig" %}
@@ -52,6 +53,7 @@
 				<tbody>
 					{% for user in users %}
 						<tr>
+							
 							{% if userToAdmin == 'structure' %}
 								<td>{{ user.address }}</td>
 								<td>{{ user.parent.name }}</td>
@@ -74,26 +76,39 @@
 									</div>
 								</td>
 							{% endif %}
+
+
+
+
+
 							<td>
-								<a type="button" id="modalSup" class="btn btn-primary modalSup" data-bs-toggle="modal" data-bs-target="#modalConfirmation" class="btn btn-primary">Supprimer</a>
-								{# Modal #}
-								<div class="modal fade" data-bs-backdrop="static" id="modalConfirmation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-									<div class="modal-dialog modal-sm" role="document">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h5 class="modal-title" id="exampleModalLabel">confirmer la suppression</h5>
-												<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-													<span aria-hidden="true">&times;</span>
-												</button>
-											</div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-												<a type="button" class="btn btn-primary modal-success-btn" href="{{ path('suppression', {'id' : user.id,'userToAdmin': userToAdmin, 'parentId': parentId }) }}" ;>Supprimer</a>
-											</div>
-										</div>
-									</div>
+
+
+								<div {{ stimulus_controller('modal-form')}}>
+								
+								{# ,{
+									formUrl: path('suppression', {'userId' : user.Id,'userToAdmin': userToAdmin, 'parentId': parentId })
+								})  #}
+
+									<button
+										class="btn btn-primary btn-sm"
+										data-action="modal-form#openModal"
+									>Supprimer</button>
+
+									{{ include('_modal.html.twig', {
+										modalTitle: 'Conirmer la suppression',
+										modalUrl: path('suppression', {'userId' : user.Id,'userToAdmin': userToAdmin, 'parentId': parentId })
+									}) 
+									}}
 								</div>
+
+
+
 							</td>
+
+
+
+
 						</tr>
 
 					{% else %}
@@ -157,15 +172,6 @@
 			</tbody>
 		</table>
 	{% endif %}
-</div>{% endblock %}{# Code de vérification Role
-										<td>
-												{% for role in user.roles %}
-													{% if role == "ROLE_ADMINISTRATEUR" %}
-														Administrateur
-													{% elseif role == "ROLE_PARTENAIRE" %}
-														Partenaire
-													{% elseif role == "ROLE_STRUCTURE" %}
-														Structure
-													{% endif %}
-												{% endfor %}
-											</td> #}
+
+{% endblock %}
+

@@ -16,7 +16,7 @@ class CreationController extends AbstractController
     #[Route('administrateur/{userToAdmin}/creation', name: 'administrateur_creation')]
     public function creation(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, $userToAdmin): Response
     {
-        dd('salut');
+
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
@@ -24,13 +24,6 @@ class CreationController extends AbstractController
 
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
-            $user->setPassword(
-                $userPasswordHasher->hashPassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                )
-            );   
             
             // encode random password
             $user->setPassword(
@@ -64,7 +57,7 @@ class CreationController extends AbstractController
             // TODO Redirection vers la liste à corriger
             return $this->redirectToRoute('administrateur_liste', array('userToAdmin' => $userToAdmin));
         }
-
+        
         return $this->render('pages/creation.html.twig', [
             'registrationForm' => $form->createView(),
             'pageName' => 'créer '.$userToAdmin,

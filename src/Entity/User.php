@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -25,7 +24,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var string The hashed password
      */
-    #[ORM\Column]
+    #[ORM\Column (nullable: true)]
     private ?string $password = null;
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $name = null;
@@ -46,7 +45,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: GlobalOption::class, mappedBy: 'id_partner')]
     private Collection $globalOptions;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private array $roles = [];
 
     public function getId(): ?int
@@ -224,18 +223,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 }
 
 
-
-    /**
-     * @see UserInterface
-     */
-    // public function getRoles(): array
-    // {
-    //     $roles = $this->roles;
-    //     // guarantee every user at least has ROLE_STRUCTURE
-    //     $roles[] = 'ROLE_STRUCTURE';
-
-    //     return array_unique($roles);
-    // }
 
 
 

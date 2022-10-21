@@ -15,7 +15,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AccueilController extends AbstractController
 {
-    #[Route('admin/accueil', name: 'administrateur_accueil')]
+
+   // redirection vers des routes différentes pour interdire l'accès à l'administration sur les routes /administrateur/*
+
+    #[Route('administrateur/accueil', name: 'administrateur_accueil')]
     public function administrateur_accueil(): Response
     {
         return $this->render('pages/accueil.html.twig', [
@@ -24,7 +27,7 @@ class AccueilController extends AbstractController
         ]);
     }
 
-/*     #[Route('partenaire/accueil', name: 'partenaire_accueil')]
+    #[Route('partenaire/accueil', name: 'partenaire_accueil')]
     public function partenaire_accueil(): Response
     {
         return $this->render('pages/accueil.html.twig', [
@@ -42,5 +45,5 @@ class AccueilController extends AbstractController
             'userRole' => 'structure',
             'connectedUser' => $this->getUser()
         ]);
-    } */
+    }
 }

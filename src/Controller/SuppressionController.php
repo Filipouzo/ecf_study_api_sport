@@ -13,17 +13,18 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class SuppressionController extends AbstractController
 {
-    #[Route('administrateur/suppression/{id}', name: 'suppression', methods:  ['GET', 'POST'])]
-    public function delete(request $request, User $user, EntityManagerInterface $entityManager): Response
+    #[Route('administrateur/suppression/{userId}', name: 'suppression', methods:  ['GET', 'POST'])]
+    public function delete(request $request, UserRepository $users, EntityManagerInterface $entityManager,$userId): Response
     {
 
         $userToAdmin = $request->query->get('userToAdmin');
-        $parentId = $request->query->get('parentId');
+        $parentId = $request->query->get('parentId');/* 
+        $userId = $request->query->get('userId'); */
 /* 
         $submittedToken = $request->request->get('token');
         if ($this->isCsrfTokenValid('delete-item', $submittedToken)) {
         } */
-        
+        $user = $users->find($userId);
         $entityManager->remove($user);
         $entityManager->flush($user);
 
