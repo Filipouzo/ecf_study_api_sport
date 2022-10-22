@@ -8,37 +8,27 @@
 	<div class="wrapper mt-5 p-3">
         <div class="row">
             <div class="col">
-		        <h1>Nouvel enregistrement d'un(e) {{ userToCreate}}</h1>
 
-                        {{ form(registrationForm) }}
-
-{#                 {% if userToCreate == 'administrateur' or userToCreate == 'partenaire'%}  
-                    <form>                      
-
+                {% if userToCreate == 'administrateur' or userToCreate == 'partenaire'%}
+		            <h1>Ajout d'un {{userToCreate}}</h1>
+                    {{form_start(registrationForm)}}
+                    {% do registrationForm.address.setRendered %}
                     {{ form_row(registrationForm.name) }}
                     {{ form_row(registrationForm.email) }}
-
-                    <button type="submit" class="btn btn-primary mt-3">Enregistrer</button>       
-
-                    </form>  
+                    {{form_rest(registrationForm)}}
+                    <button type="submit" class="btn btn-primary mt-3">Enregistrer</button>  
+                    {{ form_end(registrationForm) }} 
                 {% endif %}
                 {% if userToCreate == 'structure'%}
+		            <h1>Ajout d'une {{userToCreate}} à {{parentName}}</h1>
                     {{form_start(registrationForm)}}
+                    {% do registrationForm.name.setRendered %}
                     {{ form_row(registrationForm.address) }}
                     {{ form_row(registrationForm.email) }}
                     <button type="submit" class="btn btn-primary mt-3">Enregistrer</button>       
                     {{ form_end(registrationForm) }}
-                {% endif %} #}
-
-
-
-
-{#                 {{ form_start(registrationForm) }}
-                    {{ form_widget(registrationForm) }}
-                    <button class="btn">{{ button_label|default('Save') }}</button>
-                {{ form_end(registrationForm) }} #}
-
-        </div>
+                {% endif %}
+            </div>
         </div>
     </div>
 {% endblock %}

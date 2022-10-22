@@ -14,23 +14,13 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 
-class RegistrationFormType extends AbstractType
+class StructureFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class, [
-                'required' => false,
-                'label' => 'Nom',
-                'constraints' => new Length(min: 2, max: 30),
-                'attr' => [
-                    'placeholder' => 'Nom',
-                    'class' => 'form-control'
-                ]
-            ])
-
             ->add('address', TextType::class, [
-                'required' => false,
+                'required' => true,
                 'label' => 'Adresse',
                 'constraints' => new Length(min: 2, max: 30),
                 'attr' => [
@@ -60,36 +50,9 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false
             ])
 
-            ->add('enrgistrer', SubmitType::class, [
+/*             ->add('enrgistrer', SubmitType::class, [
                 'label' => 'Enregister'
-            ]);
-
-
-/*             ->add('parent', TextType::class, [
-                ]
-            ]) */
-
-/*             ->add('plainPassword', PasswordType::class, [
-                'mapped' => false,
-                'required' => false,
-                'label' => 'Entrer votre mot de passe',
-                'attr' => [
-                    'placeholder' => 'Mot de passe',
-                    'autocomplete' => 'new-password',
-                    'class' => 'form-control'
-                ],
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Saisir un mot de passe',
-                    ]),
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Votre mot de passe doit contenir au moins {{ limit }} caractères',
-                        'max' => 4096,
-                    ]),
-                ],
-            ]); */
-
+            ]) */;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -99,3 +62,4 @@ class RegistrationFormType extends AbstractType
         ]);
     }
 }
+

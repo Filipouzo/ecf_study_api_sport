@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\RegistrationFormType;
+use App\Form\UserFormType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,7 +21,7 @@ class CreationController extends AbstractController
         $parentName = $request->query->get('parentName');
 
         $user = new User();
-        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form = $this->createForm(UserFormType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             
@@ -66,6 +66,7 @@ class CreationController extends AbstractController
             'registrationForm' => $form,
             'pageName' => 'créer '.$userToAdmin,
             'userToCreate' => $userToAdmin,
+            'parentName' => $parentName,
         ]);
     }
 }
