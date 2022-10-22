@@ -22,12 +22,32 @@
 				</h1>
 			{% endif %}
 
+
+
+			{# Barre de recherche #}
+
 			<div class="mt-5 row">
 				<div class="col-sm-12 col-lg-6">
-					<form class="d-flex">
-						<input class=" me-sm-2" type="text" placeholder="Chercher">
-						<button class="btn btn-secondary my-2 my-sm-0" type="submit">>Chercher</button>
+
+
+					<form class="input-group">
+						<div
+						class="input-group"
+						{{stimulus_controller('search-preview')}}
+						>
+							<input 
+								name="q"
+								value="{# {{searchTerm}} #}"
+								placeholder="rechercher..."
+								type="search"
+								class="form-control"
+								data-action="search-preview#onSearchInput"
+							>
+						</div>
 					</form>
+
+
+
 				</div>
 			</div>
 
