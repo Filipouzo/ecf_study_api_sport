@@ -17,9 +17,15 @@
 				<h4>Vous êtes sur votre compte 
 					<strong>administrateur</strong></h4>
 				<div class="m-3">
-					<a href="{{ path('administrateur_liste',{'parentId' : '0','userToAdmin': 'administrateur' }) }}" class="btn btn-primary">Gérer les administrateur</a>
-					<a href="{{ path('administrateur_liste',{'parentId' : '0','userToAdmin': 'partenaire' }) }}" class="btn btn-primary">Gérer les partenaires</a>
-					<a href="{{ path('administrateur_liste',{'parentId' : '0','userToAdmin': 'structure' }) }}" class="btn btn-primary">Gérer les structures</a>
+					<div class="m-4">
+						<a href="{{ path('administrateur_liste',{'parentId' : '0','userToAdmin': 'administrateur' }) }}" class="btn btn-primary">Gérer les administrateur</a>
+					</div>
+					<div class="m-4">
+						<a href="{{ path('administrateur_liste',{'parentId' : '0','userToAdmin': 'partenaire' }) }}" class="btn btn-primary">Gérer les partenaires</a>
+					</div>
+					<div class="m-4">
+						<a href="{{ path('administrateur_liste',{'parentId' : '0','userToAdmin': 'structure' }) }}" class="btn btn-primary">Gérer les structures</a>
+					</div>
 				</div>
 
 			{% elseif is_granted('ROLE_PARTENAIRE') %}
