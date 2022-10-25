@@ -23,37 +23,58 @@
 			{% endif %}
 
 
-
-			{# Barre de recherche #}
-
+			{# Barre de recherche pour trouver le nom ou l'adresse sans recharger la page #}
 			<div class="mt-5 row">
-				<div class="col-sm-12 col-lg-6">
-
-
-					<form class="input-group">
+				<div class="col-lg-6">
+					<form>
 						<div
-						class="input-group"
-						{{stimulus_controller('search-preview')}}
-						>
-							<input 
-								name="q"
-								value="{# {{searchTerm}} #}"
-								placeholder="rechercher..."
-								type="search"
-								class="form-control"
-								data-action="search-preview#onSearchInput"
+							{# ajax #}
+							class="input-group"
+							{{stimulus_controller('search-preview',
+								{
+									url: 'search',
+									parentId: parentId,
+									userToAdmin: userToAdmin,
+									parentName: parentName,
+								}
+							)}}
 							>
+							{# Entrée #}
+							<div class="">
+								<input 
+									name="q"
+									value="{{searchTerm}}"
+									type="search"
+									placeholder="Rechercher..."
+									class="form-control"
+									aria-label="Rechercher"
+									data-action="search-preview#onSearchInput"
+								>
+							{# résultat #}
+								<div 
+                                    class="search-preview"
+                                    data-search-preview-target="result"
+								>
+								</div>
+							</div>
 						</div>
 					</form>
-
-
-
 				</div>
 			</div>
 
+			{% if id !='' %}
+				<a
+					class="btn btn-primary btn-sm"
+					href="{{ path('administrateur_liste', {'parentName' : parentName,'parentId' : parentId,'userToAdmin': userToAdmin }) }}" 
+				>Retour à la liste complète</a>
+
+			{% endif %}
+
+			
+
+			{# Liste sous forme de tableau #}
 			<table class="mt-5 table">
 				<thead>
-
 					{% if userToAdmin == 'structure' %}
 						<th>Adresse</th>
 						<th>Franchise</th>
@@ -73,7 +94,6 @@
 				<tbody>
 					{% for user in users %}
 						<tr>
-							
 							{% if userToAdmin == 'structure' %}
 								<td>{{ user.address }}</td>
 								<td>{{ user.parent.name }}</td>
@@ -98,9 +118,8 @@
 							{% endif %}
 
 							<td>
-								{# Bouton de se suppression avec modal Stimulus #}
+								{# Bouton de suppression avec modal via controleur Stimulus #}
 								<div {{ stimulus_controller('modal-form')}}>
-
 									<button
 										class="btn btn-primary btn-sm"
 										data-action="modal-form#openModal"
@@ -123,7 +142,7 @@
 				</tbody>
 			</table>
 
-			
+			{# Création d'un nouvel enregistrement #}
 			{% if userToAdmin != 'structure' %}
 				{# Création d'un administrateur ou d'un partenaire  #}
 				<div class="mt-5 row">
@@ -177,6 +196,5 @@
 				</tbody>
 			</table>
 		{% endif %}
-
 {% endblock %}
 

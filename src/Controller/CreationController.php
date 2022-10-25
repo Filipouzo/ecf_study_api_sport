@@ -15,8 +15,9 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class CreationController extends AbstractController
 {
     #[Route('administrateur/{userToAdmin}/creation', name: 'administrateur_creation')]
-    public function creation(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserRepository $users, EntityManagerInterface $entityManager, $userToAdmin): Response
+    public function creation(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserRepository $users, EntityManagerInterface $entityManager): Response
     {
+        $userToAdmin = $request->query->get('userToAdmin');
         $parentId = $request->query->get('parentId');
         $parentName = $request->query->get('parentName');
 

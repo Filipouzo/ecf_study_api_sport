@@ -15,31 +15,55 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ListeController extends AbstractController
 {
-    #[Route('administrateur/liste/{userToAdmin}', name: 'administrateur_liste')]
-    public function adminList(Request $request, UserRepository $users, $userToAdmin)
+    #[Route('administrateur/liste', name: 'administrateur_liste')]
+    public function adminList(Request $request, UserRepository $userRepository)
     {        
-        
+        $userToAdmin = $request->query->get('userToAdmin');
         $parentId = $request->query->get('parentId');
         $parentName = $request->query->get('parentName');
 
-        if ($parentId !='0') {
-            return $this->render("pages/listeUser.html.twig", [
-                'users' => $users->findByParentId($parentId),
-                /* 'parentName' => $users->findById($parentId), */
-                'pageName' => 'liste structure',
-                'userToAdmin' => $userToAdmin,
-                'parentId' => $parentId,
-                'parentName' => $parentName
-            ]);
+        $searchResult = $request->query->get('id');
+        $searchTerm = $request->query->get('q');
+/*         $searchResult = $userRepository->findByName($searchTerm); */
 
-        } else {
-            return $this->render("pages/listeUser.html.twig", [
-            'users' => $users->findByRole('ROLE_'. strtoupper($userToAdmin)),
-            'pageName' => 'liste '.$userToAdmin,
-            'userToAdmin' => $userToAdmin,
-            'parentId' => $parentId
-        ]);
-        }
+/*         $searchResult = $userRepository->search(
+            'name',
+            $searchTerm
+        ); */
+
+/*            if ($request->query->get('preview')) {
+
+            dd($searchTerm);
+            return $this->render('partials/_searchPreview.html.twig', [
+                'users' => $searchResult,
+            ]);
+        } */
+        
+            if ($parentId !='0') {
+                // retourne la liste des administrateurs ou des partenaires
+                return $this->render("pages/listeUser.html.twig", [
+                    'users' => $userRepository->findByParentId($parentId,$searchResult),
+                    /* 'parentName' => $users->findById($parentId), */
+                    'pageName' => 'liste '.$userToAdmin,
+                    'userToAdmin' => $userToAdmin,
+                    'parentId' => $parentId,
+                    'parentName' => $parentName,
+                    'searchTerm' => $searchTerm,
+                    'id' => $searchResult,
+                ]);
+
+            } else {
+                // retourne la liste des structures
+                return $this->render("pages/listeUser.html.twig", [
+                'users' => $userRepository->findByRole('ROLE_'.strtoupper($userToAdmin),$searchResult),
+                'pageName' => 'liste '.$userToAdmin,
+                'userToAdmin' => $userToAdmin,
+                'parentName' => $parentName,
+                'parentId' => '0',
+                'searchTerm' => $searchTerm,
+                'id' => $searchResult,
+                ]);
+            }
     }
 
     #[Route('partenaire/liste/structure', name: 'partenaire_liste')]

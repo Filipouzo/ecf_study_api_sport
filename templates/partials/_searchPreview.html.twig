@@ -1,0 +1,16 @@
+<div class="list-group">
+    {% for user in users %}
+        <a
+            class="list-group-item list-group-item-action"
+            href="{{ path('administrateur_liste', { 'id': user.id, 'parentId': parentId, 'userToAdmin': userToAdmin, 'parentName': parentName }) }}"
+        >
+                {{ user.name }}
+                {{ user.address}}
+            
+            
+        </a>
+    {% else %}
+        <div class="list-group-item">Pas de résultat !</div>
+    {% endfor %}
+    
+</div>

@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -56,53 +57,80 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->add($user, true);
     }
 
-//    /**
-//     * @return User[] Returns an array of User objects
-//     */
-    public function findByRole($role)
+
+
+    // recherche des User par role et aussi par id si ce dernier existe 
+    public function findByRole($role,string $search = null)
     {
         $qb = $this->_em->createQueryBuilder();
-        $qb->select('u')
-            ->from($this->_entityName, 'u')
-            ->where('u.roles LIKE :roles')
-            ->setParameter('roles', '%"'.$role.'"%');
+        $qb->select('user')
+            ->from($this->_entityName, 'user')
+            ->Where('user.roles LIKE :roles')
+            ->setParameter('roles', '%"'.$role.'"%')
+            ->orderBy('user.name', 'ASC');
 
-        return $qb->getQuery()->getResult();
+            if ($search) {
+                $qb->andWhere('user.id LIKE :searchTerm')
+                    ->setParameter('searchTerm', '%'.$search.'%');
+
+            }
+        return $qb->getQuery()->getResult()
+        ;
     }
-
-      
-    public function findByParentId($value)
+    
+    // recherche des structures par parent (franchise) et aussi par id si ce dernier existe 
+    public function findByParentId($parent,string $search = null)
     {
-        return $this->createQueryBuilder('u')
-            ->Where('u.parent = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.address', 'ASC')
-            ->getQuery()
-            ->getResult();
-/*             ->getOneOrNullResult() */
+        $qb = $this->_em->createQueryBuilder();
+        $qb ->select('user')
+            ->from($this->_entityName, 'user')
+            ->Where('user.parent = :val')
+            ->setParameter('val', $parent)
+            ->orderBy('user.address', 'ASC');
+
+            if ($search) {
+                $qb->andWhere('user.id LIKE :searchTerm')
+                    ->setParameter('searchTerm', '%'.$search.'%');
+            }
+        return $qb->getQuery()->getResult()
         ;
     }
 
-//    public function findOneBySomeField($value): ?User
-//    {
-//        return $this->createQueryBuilder('u')
-//            ->andWhere('u.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 
-    // find user by role
-/*     public function findByRole(string $role)
+    /* Recherche des administrateurs des partenaires par nom */
+    public function findbyName($search,$userToAdmin)
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.roles LIKE :role')
-            ->setParameter('role', 'ROLE_%"' . $role . '"%')
-            ->getQuery()
-            ->getResult();
-    } */
+        $qb = $this->_em->createQueryBuilder();
+        $qb ->select('user')
+            ->from($this->_entityName, 'user')
+            ->Where('user.name LIKE :val')
+            ->setParameter('val', '%'.$search.'%')
+            ->andWhere('user.roles LIKE :roles')
+            ->setParameter('roles', '%'.$userToAdmin.'%')
+            ;
+        if ($search) {
+            return $qb
+                ->setMaxResults(1)
+                ->getQuery()
+                ->getResult();
+        }
+    }        
 
 
+    /* Recherche des structures par adresse */
+    public function findByAddress($search)
+    {
+        $qb = $this->_em->createQueryBuilder();
+        $qb ->select('user')
+            ->from($this->_entityName, 'user')
+            ->Where('user.address LIKE :val')
+            ->setParameter('val', '%'.$search.'%');
 
+        if ($search) {
+            return $qb
+                ->setMaxResults(1)
+                ->getQuery()
+                ->getResult();
+        }
+    }
 }
