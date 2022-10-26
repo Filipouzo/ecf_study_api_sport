@@ -3,10 +3,12 @@
 namespace App\DataFixtures;
 
 use App\Entity\User;
+use App\Entity\GlobalOption;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Core\Role\Role;
 
 class AppFixtures extends Fixture
 {
@@ -20,9 +22,12 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         // * Fixture particulière parent
-        $parent = $this-> createUserFixture(email: 'partenaire@exemple.com',password:'partenaire', name:'Toulouse', address:'', activated:'true', role:'ROLE_PARTENAIRE' ,parent: null, manager: $manager);
-        $parent2 = $this-> createUserFixture(email: 'partenaire2@exemple.com',password:'partenaire', name:'Paris', address:'', activated:'true', role:'ROLE_PARTENAIRE' ,parent: null, manager: $manager);
-        $parent3 = $this-> createUserFixture(email: 'partenaire3@exemple.com',password:'partenaire', name:'Lyon', address:'', activated:'true', role:'ROLE_PARTENAIRE' ,parent: null, manager: $manager);
+
+        $parent = $this-> createUserFixturePartenaire(email: 'partenaire@exemple.com',password:'partenaire', name:'Toulouse', address:'', activated:'true', role:'ROLE_PARTENAIRE' ,parent: null, manager: $manager);
+        $parent2 = $this-> createUserFixturePartenaire(email: 'partenaire2@exemple.com',password:'partenaire', name:'Paris', address:'', activated:'true', role:'ROLE_PARTENAIRE' ,parent: null, manager: $manager);
+        $parent3 = $this-> createUserFixturePartenaire(email: 'partenaire3@exemple.com',password:'partenaire', name:'Lyon', address:'', activated:'true', role:'ROLE_PARTENAIRE' ,parent: null, manager: $manager);
+        
+        
         // * autres fixtures user
         $this-> createUserFixture(email: 'administrateur@exemple.com',password:'administrateur', name:'Philippe', address:'', activated:'true', role:'ROLE_ADMINISTRATEUR' ,parent: null, manager: $manager);
         $this-> createUserFixture(email: 'administrateur2@exemple.com',password:'administrateur2', name:'OLivier', address:'', activated:'true', role:'ROLE_ADMINISTRATEUR' ,parent: null, manager: $manager);
@@ -36,7 +41,7 @@ class AppFixtures extends Fixture
         $this-> createUserFixture(email: 'structure7@exemple.com',password:'structure', name:'', address:'rue du peuple', activated:'true', role:'ROLE_STRUCTURE' ,parent:$parent3, manager: $manager);
         $this-> createUserFixture(email: 'structure8@exemple.com',password:'structure', name:'', address:'rue de sevre', activated:'', role:'ROLE_STRUCTURE' ,parent:$parent3, manager: $manager);
         $this-> createUserFixture(email: 'structure9@exemple.com',password:'structure', name:'', address:'rue du touch', activated:'', role:'ROLE_STRUCTURE' ,parent:$parent3, manager: $manager);
-
+ 
         $manager->flush();
     }
 
@@ -53,6 +58,41 @@ class AppFixtures extends Fixture
                 ->setParent($parent);
 
         $manager->persist($user);
+
+        return $user; // pour la fonction parent
+    }
+
+
+    public function createUserFixturePartenaire(string $email,string $password, string $name, string $address, string $activated, string $role  ,User $parent = null, ObjectManager $manager ){
+        $user = new User();
+        $user  
+                ->setEmail($email)
+                ->setPassword($this->hasher->hashPassword($user, $password))
+                ->setName($name)
+                ->setAddress($address)
+                ->setActivated($activated)
+                ->setRoles([$role])
+                ->setParent($parent);
+
+        $manager->persist($user);
+
+        $nameGlobalOption = [
+            "Vendre des boissons",
+            "Inscrit à la News Letter",
+            "Recevoir des goodies",
+            "Gérer les planning équipe"
+        ];
+        
+
+        for ($j=0; $j<=3; $j++) {
+            $globaleOption= new GlobalOption();
+            $globaleOption ->setName($nameGlobalOption[$j])
+                    ->setPatnerParent($user)
+                    ->setActivated(mt_rand(0,1))
+            ;
+            $manager->persist($globaleOption);
+
+        }
 
         return $user; // pour la fonction parent
     }

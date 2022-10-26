@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -39,14 +40,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
     private Collection $users;
 
-    #[ORM\ManyToOne(inversedBy: 'id_admin')]
-    private ?GlobalOption $globalOption = null;
-
-    #[ORM\ManyToMany(targetEntity: GlobalOption::class, mappedBy: 'id_partner')]
-    private Collection $globalOptions;
-
     #[ORM\Column]
     private array $roles = [];
+
+    #[ORM\OneToMany(mappedBy: 'patnerParent', targetEntity: GlobalOption::class)]
+    private Collection $globalOptions;
+
+    public function __construct()
+    {
+        $this->globalOptions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -165,15 +168,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getGlobalOption(): ?GlobalOption
+
+    public function getRoles(): array
     {
-        return $this->globalOption;
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_STRUCTURE';
+
+        return array_unique($roles);
     }
-
-    public function setGlobalOption(?GlobalOption $globalOption): self
+    
+    public function setRoles(array $roles): self
     {
-        $this->globalOption = $globalOption;
-
+        $this->roles = $roles;
         return $this;
     }
 
@@ -189,7 +196,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->globalOptions->contains($globalOption)) {
             $this->globalOptions->add($globalOption);
-            $globalOption->addIdPartner($this);
+            $globalOption->setPatnerParent($this);
         }
 
         return $this;
@@ -198,25 +205,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeGlobalOption(GlobalOption $globalOption): self
     {
         if ($this->globalOptions->removeElement($globalOption)) {
-            $globalOption->removeIdPartner($this);
+            // set the owning side to null (unless already changed)
+            if ($globalOption->getPatnerParent() === $this) {
+                $globalOption->setPatnerParent(null);
+            }
         }
 
-        return $this;
-    }
-
-
-    public function getRoles(): array
-    {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_STRUCTURE';
-
-        return array_unique($roles);
-    }
-    
-    public function setRoles(array $roles): self
-    {
-        $this->roles = $roles;
         return $this;
     }
 }

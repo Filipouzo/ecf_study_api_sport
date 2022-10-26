@@ -21,17 +21,10 @@ class GlobalOption
     #[ORM\Column]
     private ?bool $activated = null;
 
-    #[ORM\OneToMany(mappedBy: 'globalOption', targetEntity: User::class)]
-    private Collection $id_admin;
+    #[ORM\ManyToOne(inversedBy: 'globalOptions')]
+    private ?User $patnerParent = null;
 
-    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'globalOptions')]
-    private Collection $id_partner;
 
-    public function __construct()
-    {
-        $this->id_admin = new ArrayCollection();
-        $this->id_partner = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -62,51 +55,16 @@ class GlobalOption
         return $this;
     }
 
-    public function getIdAdmin(): Collection
+    public function getPatnerParent(): ?User
     {
-        return $this->id_admin;
+        return $this->patnerParent;
     }
 
-    public function addIdAdmin(User $idAdmin): self
+    public function setPatnerParent(?User $patnerParent): self
     {
-        if (!$this->id_admin->contains($idAdmin)) {
-            $this->id_admin->add($idAdmin);
-            $idAdmin->setGlobalOption($this);
-        }
+        $this->patnerParent = $patnerParent;
 
         return $this;
     }
 
-    public function removeIdAdmin(User $idAdmin): self
-    {
-        if ($this->id_admin->removeElement($idAdmin)) {
-            // set the owning side to null (unless already changed)
-            if ($idAdmin->getGlobalOption() === $this) {
-                $idAdmin->setGlobalOption(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getIdPartner(): Collection
-    {
-        return $this->id_partner;
-    }
-
-    public function addIdPartner(User $idPartner): self
-    {
-        if (!$this->id_partner->contains($idPartner)) {
-            $this->id_partner->add($idPartner);
-        }
-
-        return $this;
-    }
-
-    public function removeIdPartner(User $idPartner): self
-    {
-        $this->id_partner->removeElement($idPartner);
-
-        return $this;
-    }
 }

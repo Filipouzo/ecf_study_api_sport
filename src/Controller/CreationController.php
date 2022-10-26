@@ -36,12 +36,7 @@ class CreationController extends AbstractController
                 )
             );
 
-
             $user->setActivated('true');
-
-            	// TODO  setParent   faire la gestion du parent                
-                    //if(isset($parent)){}
-
 
             if ($userToAdmin == 'administrateur'){
                 $user->setRoles(["ROLE_ADMINISTRATEUR"]);
@@ -57,9 +52,9 @@ class CreationController extends AbstractController
 
             $entityManager->persist($user);
             $entityManager->flush();
-            // do anything else you need here, like send an email
 
-            // TODO Redirection vers la liste à corriger
+            //TODO  send an email
+
             return $this->redirectToRoute('administrateur_liste', array('userToAdmin' => $userToAdmin, 'parentId' => $parentId, 'parentName' => $parentName));
         }
         

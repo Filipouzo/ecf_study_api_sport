@@ -3,10 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\GlobalOption;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 
@@ -21,4 +22,15 @@ class ActivationController extends AbstractController
 
         return new Response("true");
     }
+
+    #[Route('administrateur/GlobalOption/{id}', name: 'activerGlobalOption')]
+    public function activerglobalOption(GlobalOption $globalOption, EntityManagerInterface $entityManager): Response
+    {
+        $globalOption->setActivated(($globalOption->isActivated()) ? false : true);
+        $entityManager->persist($globalOption);
+        $entityManager->flush($globalOption);
+
+        return new Response("true");
+    }
+
 }
