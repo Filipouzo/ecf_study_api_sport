@@ -33,8 +33,7 @@
 					<strong>{{ app.user.name }}</strong>
 				</h3>
 				<div class="m-3">
-					<a href="{{ path('partenaire_liste',{'connectedUserId' : connectedUser.id}) }}" class="btn btn-primary">Vos structures</a>
-					<a href="{# {{ path('') }} #}" class="btn btn-primary">Vos options globales</a>
+					<a href="{{ path('administrateur_liste',{'parentId' : connectedUser.id,'userToAdmin': 'partenaire'}) }}" class="btn btn-primary">Vos structures options globales</a>
 				</div>
 
 			{% elseif is_granted('ROLE_STRUCTURE') %}

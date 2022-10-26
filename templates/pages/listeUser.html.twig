@@ -193,39 +193,40 @@
 					</div>
 				{% endif %}
 			{% endif %}
-		{% endif %}
 
 
 		{# affichage Role partenaire #}
-		{% if is_granted('ROLE_PARTENAIRE') %}
+		{% elseif is_granted('ROLE_PARTENAIRE') %}
+			<div class="mt-5">
+				<h3>Liste de vos structures</strong> :</h3>
 
-			<h4>Liste de vos structures</strong> :</h4>
+				<table class="mt-5 table">
+					<thead>
+						<th>Adresse</th>
+						<th>Email</th>
+						<th>Active</th>
+					</thead>
+					<tbody>
+						{% for user in users %}
+							<tr>
+								<td>{{ user.address }}</td>
+								<td>{{ user.email }}</td>
+								<td>
+									{{ user.activated ? 'OUI' : 'NON' }}
+								</td>
+							</tr>
 
-			<table class="mt-5 table">
-				<thead>
-					<th>Adresse</th>
-					<th>Email</th>
-					<th>Active</th>
-				</thead>
-				<tbody>
-					{% for user in users %}
-						<tr>
-							<td>{{ user.address }}</td>
-							<td>{{ user.email }}</td>
-							<td>
-								{{ user.activated ? 'OUI' : 'NON' }}
-							</td>
-						</tr>
+						{% else %}
+							<tr>
+								<td>Il n'y a pas d'enregistrement pour ce tableau</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
 
-					{% else %}
-						<tr>
-							<td>Il n'y a pas d'enregistrement pour ce tableau</td>
-						</tr>
-					{% endfor %}
-				</tbody>
-			</table>
-
-					<h2>Liste des vos options globales</h2>
+			<div class="mt-5">
+				<h3>Liste des vos options globales</h3>
 				{# Liste sous forme de tableau #}
 				<table class="mt-5 table">
 					<thead>
@@ -242,6 +243,31 @@
 						{% endfor %}
 					</tbody>
 				</table>
+			</div>
+
+
+
+		{# affichage Role structure #}
+		{% elseif is_granted('ROLE_STRUCTURE') %}
+
+
+			<h3>Liste des vos options globales</h3>
+			
+			<table class="mt-5 table">
+				<thead>
+					<th>Nom</th>
+					<th>Actif</th>
+				</thead>
+
+				<tbody>
+					{% for global_option in global_options %}
+						<tr>
+							<td>{{ global_option.name }}</td>
+							<td>{{ global_option.activated ? 'Oui' : 'Non' }}</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
 		{% endif %}
 	</div>
 {% endblock %}

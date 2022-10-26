@@ -75,7 +75,7 @@ class ListeController extends AbstractController
     {
         $connectedUserId = $request->query->get('connectedUserId');
         return $this->render("pages/listeUser.html.twig", [
-            'users' => $users->findByParentId($connectedUserId),
+            'parentId' => $parentId,
             'pageName' => 'liste structure',
             'userToAdmin' => 'structure'
         ]);
