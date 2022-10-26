@@ -102,7 +102,7 @@
 							<td>{{ user.email }}</td>
 							{% if userToAdmin == 'partenaire' %}
 								<td>
-									<a href="{{ path('administrateur_liste', {'parentName' : user.name,'parentId' : user.id,'userToAdmin': 'structure' }) }}" class="btn btn-primary">détail</a>
+									<a href="{{ path('administrateur_liste', {'parentName' : user.name,'parentId' : user.id,'userToAdmin': 'structure' }) }}" class="btn btn-primary btn-sm">détail</a>
 								</td>
 							{% endif %}
 							{% if userToAdmin != 'administrateur' %}
@@ -145,7 +145,7 @@
 				{# Création d'un administrateur ou d'un partenaire  #}
 				<div class="mt-5 row">
 					<div class="col-sm-12 col-lg-6">
-						<a href="{{ path('administrateur_creation', {'userToAdmin' : userToAdmin,'parentId' : '0'}) }}"	class="btn btn-primary">
+						<a href="{{ path('administrateur_creation', {'userToAdmin' : userToAdmin,'parentId' : '0'}) }}"	class="btn btn-primary btn-sm">
 							Ajouter un <strong>{{ userToAdmin }}</strong>
 						</a>
 					</div>
@@ -155,7 +155,7 @@
 				{# Création d'une structure  #}
 					<div class="mt-5 row">
 						<div class="col-sm-12 col-lg-6">
-							<a href="{{ path('administrateur_creation',{'parentName' : parentName,'parentId' : parentId,'userToAdmin': userToAdmin }) }}" class="btn btn-primary">
+							<a href="{{ path('administrateur_creation',{'parentName' : parentName,'parentId' : parentId,'userToAdmin': userToAdmin }) }}" class="btn btn-primary btn-sm">
 								Ajouter une	sructure à <strong>{{ parentName }}</strong> .
 							</a>
 						</div>

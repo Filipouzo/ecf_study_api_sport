@@ -1,0 +1,34 @@
+  
+
+body {
+    font-family: HeadingProDouble-Regular,sans-serif;
+    background-color:white;
+}
+
+.table {
+    font-size: .9em ;
+    }
+
+
+.banner {
+    color : white;
+    font-size: 22px;
+    font-family: 'Allerta Stencil';
+    font-weight: bolder;
+    display: flex;
+    align-items: center;
+    justify-content:space-evenly;
+    height: 100%;
+}
+
+.wrapper {
+    border-radius: 30px;
+    background-color: rgba(236, 119, 0, 1);
+    color : white;
+    margin: 1em auto;
+    max-width: 600px;
+    width: 95%;
+    align-items: center;
+    text-align: center;
+    padding: 0.5rem;
+}

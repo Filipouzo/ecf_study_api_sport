@@ -70,7 +70,7 @@ class ListeController extends AbstractController
             }
     }
 
-    #[Route('partenaire/liste/structure', name: 'partenaire_liste')]
+/*     #[Route('partenaire/liste/structure', name: 'partenaire_liste')]
     public function partenaireList(Request $request, UserRepository $users)
     {
         $connectedUserId = $request->query->get('connectedUserId');
@@ -79,6 +79,6 @@ class ListeController extends AbstractController
             'pageName' => 'liste structure',
             'userToAdmin' => 'structure'
         ]);
-    }
+    } */
 }
 

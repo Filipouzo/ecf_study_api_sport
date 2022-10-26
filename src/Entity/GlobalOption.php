@@ -24,6 +24,9 @@ class GlobalOption
     #[ORM\ManyToOne(inversedBy: 'globalOptions')]
     private ?User $patnerParent = null;
 
+    #[ORM\OneToOne(mappedBy: 'globalOptionParent', cascade: ['persist', 'remove'])]
+    private ?Option $daughterOption = null;
+
 
 
     public function getId(): ?int
@@ -63,6 +66,28 @@ class GlobalOption
     public function setPatnerParent(?User $patnerParent): self
     {
         $this->patnerParent = $patnerParent;
+
+        return $this;
+    }
+
+    public function getDaughterOption(): ?Option
+    {
+        return $this->daughterOption;
+    }
+
+    public function setDaughterOption(?Option $daughterOption): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($daughterOption === null && $this->daughterOption !== null) {
+            $this->daughterOption->setGlobalOptionParent(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($daughterOption !== null && $daughterOption->getGlobalOptionParent() !== $this) {
+            $daughterOption->setGlobalOptionParent($this);
+        }
+
+        $this->daughterOption = $daughterOption;
 
         return $this;
     }

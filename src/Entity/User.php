@@ -46,9 +46,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'patnerParent', targetEntity: GlobalOption::class)]
     private Collection $globalOptions;
 
+    #[ORM\OneToMany(mappedBy: 'strutureParent', targetEntity: Option::class)]
+    private Collection $options;
+
     public function __construct()
     {
         $this->globalOptions = new ArrayCollection();
+        $this->options = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -208,6 +212,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($globalOption->getPatnerParent() === $this) {
                 $globalOption->setPatnerParent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Option>
+     */
+    public function getOptions(): Collection
+    {
+        return $this->options;
+    }
+
+    public function addOption(Option $option): self
+    {
+        if (!$this->options->contains($option)) {
+            $this->options->add($option);
+            $option->setStrutureParent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOption(Option $option): self
+    {
+        if ($this->options->removeElement($option)) {
+            // set the owning side to null (unless already changed)
+            if ($option->getStrutureParent() === $this) {
+                $option->setStrutureParent(null);
             }
         }
 
