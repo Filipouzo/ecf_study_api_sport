@@ -46,7 +46,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'patnerParent', targetEntity: GlobalOption::class)]
     private Collection $globalOptions;
 
-    #[ORM\OneToMany(mappedBy: 'strutureParent', targetEntity: Option::class)]
+    #[ORM\OneToMany(mappedBy: 'structureParent', targetEntity: Option::class)]
     private Collection $options;
 
     public function __construct()
@@ -230,7 +230,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->options->contains($option)) {
             $this->options->add($option);
-            $option->setStrutureParent($this);
+            $option->setStructureParent($this);
         }
 
         return $this;
@@ -240,8 +240,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->options->removeElement($option)) {
             // set the owning side to null (unless already changed)
-            if ($option->getStrutureParent() === $this) {
-                $option->setStrutureParent(null);
+            if ($option->getStructureParent() === $this) {
+                $option->setStructureParent(null);
             }
         }
 

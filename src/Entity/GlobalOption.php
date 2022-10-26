@@ -22,6 +22,7 @@ class GlobalOption
     private ?bool $activated = null;
 
     #[ORM\ManyToOne(inversedBy: 'globalOptions')]
+    #[ORM\JoinColumn(onDelete:'CASCADE')]
     private ?User $patnerParent = null;
 
     #[ORM\OneToOne(mappedBy: 'globalOptionParent', cascade: ['persist', 'remove'])]

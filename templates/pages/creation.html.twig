@@ -20,7 +20,7 @@
                     {{ form_end(registrationForm) }} 
                 {% endif %}
                 {% if userToCreate == 'structure'%}
-		            <h1>Ajout d'une {{userToCreate}} à {{parentName}}</h1>
+		            <h1>Ajout d'une {{userToCreate}} à la franchise {{parentName}}</h1>
                     {{form_start(registrationForm)}}
                     {% do registrationForm.name.setRendered %}
                     {{ form_row(registrationForm.address) }}
@@ -30,5 +30,16 @@
                 {% endif %}
             </div>
         </div>
+    
+        {% if userToCreate == 'structure'%}
+        <h5>Les options globales de la franchise {{parentName}} seront automatiquement ajoutées à cette nouvelle structure. Veuillez les éditer par la suite si nécessaire. </h5>
+        {% endif %}
+
+        
+        {% if userToCreate == 'partenaire'%}
+        <h5 class="mt-5">Une fois ce partenaire ajouté, veuillez éditer ses permissions golbales</h5>
+        {% endif %}
+
+
     </div>
 {% endblock %}

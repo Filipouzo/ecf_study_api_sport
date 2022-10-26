@@ -21,7 +21,7 @@ class Option
     private ?bool $Activated = null;
 
     #[ORM\ManyToOne(inversedBy: 'options')]
-    private ?User $strutureParent = null;
+    private ?User $structureParent = null;
 
     #[ORM\OneToOne(inversedBy: 'daughterOption', cascade: ['persist', 'remove'])]
     private ?GlobalOption $globalOptionParent = null;
@@ -55,14 +55,14 @@ class Option
         return $this;
     }
 
-    public function getStrutureParent(): ?User
+    public function getStructureParent(): ?User
     {
-        return $this->strutureParent;
+        return $this->structureParent;
     }
 
-    public function setStrutureParent(?User $strutureParent): self
+    public function setStructureParent(?User $structureParent): self
     {
-        $this->strutureParent = $strutureParent;
+        $this->structureParent = $structureParent;
 
         return $this;
     }

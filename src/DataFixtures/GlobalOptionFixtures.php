@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use Faker\Factory;
 use App\Entity\User;
 use Faker\Generator;
+use App\Entity\Option;
 use App\Entity\GlobalOption;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -63,15 +64,24 @@ class GlobalOptionFixtures extends Fixture
                 "Gérer les planning équipe"
             ];
 
-            
-
             for ($j=0; $j<=3; $j++) {
-                $globaleOption= new GlobalOption();
-                $globaleOption ->setName($nameGlobalOption[$j])
+
+                $trueFalse = mt_rand(0,1);
+
+                $globalOption= new GlobalOption();
+                $globalOption 
+                        ->setName($nameGlobalOption[$j])
                         ->setPatnerParent($fakePartenaire)
-                        ->setActivated(mt_rand(0,1))
+                        ->setActivated($trueFalse)
                 ;
-                $manager->persist($globaleOption);
+                $manager->persist($globalOption);
+
+                $option= new Option();
+                $option ->setName($nameGlobalOption[$j])
+                        ->setStructureParent($fakeStructure)
+                        ->setActivated($trueFalse)
+                ;
+                $manager->persist($option);
 
             }  
         }
@@ -80,22 +90,3 @@ class GlobalOptionFixtures extends Fixture
     
 }
 
-
-/*         
-        //* fixtures GlobalOption
-        $this-> createGlobalOptionFixture(name:'Philippe', activated:'true', idPartner: null, manager: $manager);
-
-        $manager->flush();
-    }
-
-    //* Fonction création de fixture pour GlobalOption
-    public function createGlobalOptionFixture(string $name, string $activated, ,User $idPartner = null, ObjectManager $manager ){
-        $globalOption = new GlobalOption();
-        $globalOption  
-                ->setName($name)
-                ->setActivated($activated)
-                ->addIdPartner($idPartner);
-
-        $manager->persist($globalOption);
-
-        return $globalOption; // pour la fonction parent */

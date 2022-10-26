@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use Doctrine\ORM\Mapping\Id;
 use App\Repository\UserRepository;
+use App\Repository\OptionRepository;
 use App\Repository\GlobalOptionRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,7 +19,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ListeController extends AbstractController
 {
     #[Route('administrateur/liste', name: 'administrateur_liste')]
-    public function adminList(Request $request, UserRepository $userRepository,GlobalOptionRepository $globalOptionRepository)
+    public function adminList(Request $request, UserRepository $userRepository, GlobalOptionRepository $globalOptionRepository, OptionRepository $optionRepository)
     {        
         $userToAdmin = $request->query->get('userToAdmin');
         $parentId = $request->query->get('parentId');
@@ -53,6 +54,7 @@ class ListeController extends AbstractController
                     'searchTerm' => $searchTerm,
                     'id' => $searchResult,
                     'global_options' => $globalOptionRepository->findByIdPartner($parentId),
+                    'options' => $optionRepository->findByIdStructure($parentId),
                 ]);
 
             } else {
@@ -66,6 +68,7 @@ class ListeController extends AbstractController
                 'searchTerm' => $searchTerm,
                 'id' => $searchResult,
                 'global_options' => $globalOptionRepository->findByIdPartner($parentId),
+                'options' => $optionRepository->findByIdStructure($parentId),
                 ]);
             }
     }

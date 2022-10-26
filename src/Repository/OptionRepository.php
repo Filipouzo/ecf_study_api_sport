@@ -39,6 +39,18 @@ class OptionRepository extends ServiceEntityRepository
         }
     }
 
+
+    public function findByIdStructure($value): array
+    {
+        return $this->createQueryBuilder('o')
+            ->andWhere('o.structureParent = :val')
+            ->setParameter('val', $value)
+            ->orderBy('o.name', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 //    /**
 //     * @return Option[] Returns an array of Option objects
 //     */
