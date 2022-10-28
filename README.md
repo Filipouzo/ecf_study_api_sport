@@ -43,6 +43,7 @@ Les documents d'élaboration du projet (excalidraw) [Ici](https://ecf-studi-easy
 - création de la base de donnée : Symfony console make:migration
 - Executer la migration : symfony console doctrine:migration:migrate
 - lancer le serveur : symfony serve
+- Attention : les fixtures sont automatiquement lancées lors du lancement du projet. Avant de lancer l'application en production, supprimer toutes les fixtures sauf l'administrateur principale qui devra être remplacé et supprimé à la première connexion.  
 
 
 
