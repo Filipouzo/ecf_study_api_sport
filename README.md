@@ -1,6 +1,6 @@
 
 # EsasyFit Api
-![Logo](https://github.com/Filipouzo/ecf_study_api_sport/blob/main/public/Pictures/logo.PNG)
+![alt text](https://github.com/Filipouzo/ecf_study_api_sport/blob/main/public/Pictures/logo.PNG)
 
 
 # Présentation
