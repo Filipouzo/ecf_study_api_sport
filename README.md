@@ -69,3 +69,5 @@ L'application vous permet de lister vos structures et vos options globales.
 
 L'application vous permet de lister vos options.
 
+Lors de la première utilisation Créer un nouvel administrateur et supprimer les autres données.
+
