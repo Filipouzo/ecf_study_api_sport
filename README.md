@@ -23,12 +23,12 @@ L'application est disponible en ligne [Ici](https://ecf-studi-easyfit.herokuapp.
 
 La planification du projet (Trello) [Ici](https://trello.com/invite/b/DJiZ8b4A/ATTI313cc7525dbafb7743c76475476ced985E5F3278/ecf-octobre-2022)
 
-Les documents d'élaboration du projet (excalidraw) [Ici](https://ecf-studi-easyfit.herokuapp.com/)
+Les documents d'élaboration du projet (excalidraw) [Ici](https://excalidraw.com/#json=Gc32hzBAAQkiH_XHwbffk,APacjMjPRpfGsvrkw_j-XA)
 
 ## Prérequis
 
 - PHP 8.1
-- Symfony 6
+- Symfony 6 & Symfony CLI
 - Composer 2
 - WebPack 5
 
