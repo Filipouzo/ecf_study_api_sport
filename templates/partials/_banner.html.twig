@@ -2,13 +2,13 @@
 	<a {% if app.user %} {# {% if is_granted('ROLE_ADMINISTRATEUR') %}  #}href="{{ path('administrateur_accueil') }}" {# {% elseif is_granted('ROLE_PARTENAIRE') %} href="{{ path('partenaire_accueil') }}" {% elseif is_granted('ROLE_STRUCTURE') %} href="{{ path('structure_accueil') }}" {% endif %}  #}{% else %} href="{{ path('app_login') }}" {% endif %}>
 		<img class="d-inline-block align-middle" src="{{ asset('/Pictures/logo.PNG') }}" width="140" alt="logo EasyFit">
 	</a>
-	<div>
+	<div class="roleDisplay">
 		Build your body !
 	</div>
 
 	{% if app.user %}
 		<div class:"ms-auto">
-			<div>
+			<div class="roleDisplay">
 				{% if is_granted('ROLE_ADMINISTRATEUR') %}
 					{{ app.user.name}} (administrateur) 
 				{% elseif is_granted('ROLE_PARTENAIRE') %}

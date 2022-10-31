@@ -32,3 +32,33 @@ body {
     padding: 0.5rem;
 }
 
+/* Le sous-titre et les renseignements de l'utilisateur connecté disparaissent pour écrans <lg  */
+@media screen and (max-width:992px) {
+    .roleDisplay{
+      display: none;
+    }
+  }
+
+  
+/* font-size des tableaux réduite pour écrans <sm et <xs  */
+@media screen and (max-width:992px) {
+    .tableDisplay{
+      font-size: 0.7rem;
+    }
+  }
+
+/*   @media screen and (max-width:576px) {
+    body{
+      font-size: 0.6rem;
+    }
+  } */
+
+
+  table, td{
+    vertical-align: middle;
+    text-align: center;
+  }
+  .checkbox{
+    vertical-align: middle;
+    text-align: center;
+  }

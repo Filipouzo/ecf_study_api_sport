@@ -73,7 +73,7 @@
 			
 
 			{# Liste sous forme de tableau #}
-			<table class="mt-5 table">
+			<table class="mt-5 table tableDisplay">
 				<thead>
 					{% if userToAdmin == 'structure' %}
 						<th>Adresse</th>
@@ -87,7 +87,7 @@
 					{% if userToAdmin != 'administrateur' %}
 						<th>Actif</th>
 					{% endif %}
-					<th>Supprimer</th>
+					<th>suppr.</th>
 				</thead>
 
 				<tbody>
@@ -102,16 +102,16 @@
 							<td>{{ user.email }}</td>
 							{% if userToAdmin == 'partenaire' %}
 								<td>
-									<a href="{{ path('administrateur_liste', {'parentName' : user.name,'parentId' : user.id,'userToAdmin': 'structure' }) }}" class="btn btn-primary btn-sm">détail</a>
+									<a href="{{ path('administrateur_liste', {'parentName' : user.name,'parentId' : user.id,'userToAdmin': 'structure' }) }}" class="btn btn-primary btn-sm  tableDisplay">détail</a>
 								</td>
 							{% elseif userToAdmin == 'structure' %}
 								<td>
-									<a href="{{ path('administrateur_liste', {'parentName' : user.address,'parentId' : user.id,'userToAdmin': 'option' }) }}" class="btn btn-primary btn-sm">détail</a>
+									<a href="{{ path('administrateur_liste', {'parentName' : user.address,'parentId' : user.id,'userToAdmin': 'option' }) }}" class="btn btn-primary btn-sm  tableDisplay">détail</a>
 								</td>
 							{% endif %}
 							{% if userToAdmin != 'administrateur' %}
 
-								<td>
+								<td class="checkbox">
 									<div class="form-check form-switch">
 										<input class="form-check-input inputUser" type="checkbox" role="switch" {{ user.activated ? 'checked' : '' }} data-id="{{user.id}}">
 										<label class="form-check-label" for="flexSwitchCheckDefault"></label>
@@ -124,9 +124,9 @@
 								{% if user.name != 'Administrateur' %}
 									<div {{ stimulus_controller('modal-form')}}>
 										<button
-											class="btn btn-primary btn-sm"
+											class="btn btn-primary btn-sm tableDisplay"
 											data-action="modal-form#openModal"
-										>Supprimer</button>
+										>suppr.</button>
 
 										{{ include('_modal.html.twig', {
 											modalTitle: 'Conirmer la suppression',
@@ -175,7 +175,7 @@
 			{% if parentId != '0' %}
 				<div class="mt-5">
 					<h2>Liste des options globales de la franchise de {{ parentName }}</h2>
-					<table class="mt-3 table">
+					<table class="mt-3 table tableDisplay">
 						<thead>
 							<th>Nom</th>
 							<th>Actif</th>
@@ -235,16 +235,12 @@
 			{% endif %}
 		{% endif %}
 
-
-
-
-
 		{# affichage Role partenaire #}
 		{% elseif is_granted('ROLE_PARTENAIRE') %}
 			<div class="mt-5">
 				<h3>Liste de vos structures</strong> :</h3>
 
-				<table class="mt-5 table">
+				<table class="mt-5 table tableDisplay">
 					<thead>
 						<th>Adresse</th>
 						<th>Email</th>
@@ -294,14 +290,12 @@
 			</div>
 
 
-
 		{# affichage Role structure #}
 		{% elseif is_granted('ROLE_STRUCTURE') %}
 
-
 			<h3>Liste des vos options</h3>
 			
-			<table class="mt-5 table">
+			<table class="mt-5 table tableDisplay">
 				<thead>
 					<th>Nom</th>
 					<th>Actif</th>

@@ -110,7 +110,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ;
         if ($search) {
             return $qb
-                ->setMaxResults(1)
+                ->setMaxResults(2)
                 ->getQuery()
                 ->getResult();
         }
@@ -128,7 +128,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
         if ($search) {
             return $qb
-                ->setMaxResults(1)
+                ->setMaxResults(2)
                 ->getQuery()
                 ->getResult();
         }
