@@ -54,6 +54,13 @@ body {
   } 
 
 
+  @media only screen and (max-width: 640px) {
+    #unseen table td:nth-child(2), 
+    #unseen table th:nth-child(2) {display: none;}
+  }
+
+
+/* 
   table, td{
     vertical-align: middle;
     text-align: center;
@@ -61,4 +68,4 @@ body {
   .checkbox{
     vertical-align: middle;
     text-align: center;
-  }
+  } */
