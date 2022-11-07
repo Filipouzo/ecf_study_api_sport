@@ -7,6 +7,8 @@ body {
 
 .table {
     font-size: .8em ;
+    text-align: left;
+    vertical-align: middle;
     }
 
 .banner {
@@ -59,13 +61,3 @@ body {
     #unseen table th:nth-child(2) {display: none;}
   }
 
-
-/* 
-  table, td{
-    vertical-align: middle;
-    text-align: center;
-  }
-  .checkbox{
-    vertical-align: middle;
-    text-align: center;
-  } */
