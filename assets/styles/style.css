@@ -56,8 +56,8 @@ body {
   } 
 
 
-  @media only screen and (max-width: 640px) {
-    #unseen table td:nth-child(2), 
-    #unseen table th:nth-child(2) {display: none;}
-  }
+@media only screen and (max-width: 640px) {
+  #unseen table td:nth-child(2), 
+  #unseen table th:nth-child(2) {display: none;}
+}
 

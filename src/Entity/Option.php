@@ -21,6 +21,7 @@ class Option
     private ?bool $Activated = null;
 
     #[ORM\ManyToOne(inversedBy: 'options')]
+    #[ORM\JoinColumn(onDelete:'CASCADE')]
     private ?User $structureParent = null;
 
     #[ORM\OneToOne(inversedBy: 'daughterOption', cascade: ['persist', 'remove'])]
