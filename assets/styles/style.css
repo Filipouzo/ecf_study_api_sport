@@ -35,7 +35,7 @@ body {
 }
 
 /* Le sous-titre et les renseignements de l'utilisateur connecté disparaissent pour écrans <lg  */
-@media screen and (max-width:992px) {
+@media screen and (max-width:640px) {
     .roleDisplay{
       display: none;
     }
