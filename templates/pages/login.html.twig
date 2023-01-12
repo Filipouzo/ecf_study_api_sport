@@ -3,15 +3,15 @@
 {% block title %}{{ pageName }}{% endblock %}
 
 {% block body %}
-	<div class="wrapper mt-5 p-3">
-		<form method="post" class="p-5">
+	<div class="wrapper mt-5 p-2">
+		<form method="post" class="p-2">
 			{% if error %}
 				<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 			{% endif %}
 
 
-			<h3>Bienvenue dans votre espace d'administration EasyFit</h3>
-			<h4 class="mt-5">Connectez-vous pour acceder à votre compte</h4>
+			<h1>Bienvenue dans votre espace d'administration EasyFit</h1>
+			<h2 class="mt-5">Connectez-vous pour acceder à votre compte</h2>
 			<label for="inputEmail">Email</label>
 			<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
 			<label for="inputPassword">Mot de passe</label>
@@ -31,7 +31,7 @@
 			                </div>
 			#}
 
-			<button class="btn btn-lg btn-secondary text-white btn-sm mt-2" type="submit">
+			<button class="btn btn-lg btn-primary text-white btn-sm mt-2" type="submit">
 				Se connecter
 			</button>
 		</form>

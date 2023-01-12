@@ -11,11 +11,11 @@
 		{% if connectedUser.activated %}
 
 			{% if is_granted('ROLE_ADMINISTRATEUR') %}
-				<h3>Bienvenue
+				<h1>Bienvenue
 					<strong>{{ app.user.name }}</strong>
-				</h3>
-				<h4>Vous êtes sur votre compte 
-					<strong>administrateur</strong></h4>
+				</h1>
+				<h2>Vous êtes sur votre compte 
+					<strong>administrateur</strong></h2>
 				<div class="m-3">
 					<div class="m-4">
 						<a href="{{ path('administrateur_liste',{'parentId' : '0','userToAdmin': 'administrateur' }) }}" class="btn btn-primary">Gérer les administrateur</a>
@@ -29,16 +29,16 @@
 				</div>
 
 			{% elseif is_granted('ROLE_PARTENAIRE') %}
-				<h3>Franchise de
+				<h1>Franchise de
 					<strong>{{ app.user.name }}</strong>
-				</h3>
+				</h1>
 				<div class="m-3">
 					<a href="{{ path('administrateur_liste',{'parentId' : connectedUser.id,'userToAdmin': 'partenaire'}) }}" class="btn btn-primary">Vos structures options globales</a>
 				</div>
 
 			{% elseif is_granted('ROLE_STRUCTURE') %}
-				<h3>Structure de la <strong>{{ app.user.address }}</strong>
-			</h3>
+				<h1>Structure de la <strong>{{ app.user.address }}</strong>
+			</h1>
 			<div class="m-3">
 				<a href="{{ path('administrateur_liste',{'parentId' : connectedUser.id,'userToAdmin': 'partenaire'}) }}" class="btn btn-primary">Voir vos options</a>
 			</div>

@@ -1,141 +1,246 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ pageName }}{% endblock %}
+{% block title %}
+	{{ pageName }}
+{% endblock %}
 {# {% block javascripts %}{{ parent() }}{% endblock javascripts %} #}
 
 {% block body %}
 	{% include "partials/_navbar.html.twig" %}
-	<div class="wrapper">
+	<div
+		class="wrapper">
 		{# affichage Role administrateur #}
 		{% if is_granted('ROLE_ADMINISTRATEUR') %}
 			{% if  userToAdmin!= 'option'%}
 
-			{% if (parentId != '0' and userToAdmin!= 'option') %}
-				<h2>Liste des
-					<strong>{{ userToAdmin }}s
-					</strong> de la franchise de
-					<strong>{{ parentName }}</strong>
-				</h2>
-			{% else %}
-				<h2>Liste des
-					<strong>{{ userToAdmin }}s</strong>
-				</h2>
-			{% endif %}
+				{% if (parentId != '0' and userToAdmin!= 'option') %}
+					<h1>Liste des
+						<strong>{{ userToAdmin }}s
+						</strong>
+						de la franchise de
+						<strong>{{ parentName }}</strong>
+					</h1>
+				{% else %}
+					<h1>Liste des
+						<strong>{{ userToAdmin }}s</strong>
+					</h1>
+				{% endif %}
 
 
-			{# Barre de recherche pour trouver le nom ou l'adresse sans recharger la page #}
-			<div class="mt-5 row">
-				<div class="col-lg-6">
-					<form>
-						<div
-							{# ajax #}
-							class="input-group"
-							{{stimulus_controller('search-preview',
-								{
-									url: 'search',
-									parentId: parentId,
-									userToAdmin: userToAdmin,
-									parentName: parentName,
-								}
-							)}}
-							>
-							{# Entrée #}
-							<div class="">
-								<input 
-									name="q"
-									value="{{searchTerm}}"
-									type="search"
-									placeholder="Rechercher..."
-									class="form-control"
-									aria-label="Rechercher"
-									data-action="search-preview#onSearchInput"
-								>
-							{# résultat #}
-								<div 
-                                    class="search-preview"
-                                    data-search-preview-target="result"
-								>
+				{# Barre de recherche pour trouver le nom ou l'adresse sans recharger la page #}
+				<div class="mt-5 row">
+					<div class="col-lg-6">
+						<form>
+							<div
+								{# ajax #} class="input-group" {{stimulus_controller('search-preview', { url: 'search', parentId: parentId, userToAdmin: userToAdmin, parentName: parentName, } )}}>
+								{# Entrée #}
+								<div class="">
+									<input
+									name="q" value="{{searchTerm}}" type="search" placeholder="Rechercher..." class="form-control" aria-label="Rechercher" data-action="search-preview#onSearchInput">
+									{# résultat #}
+									<div class="search-preview" data-search-preview-target="result"></div>
 								</div>
 							</div>
-						</div>
-					</form>
+						</form>
+					</div>
 				</div>
-			</div>
 
-			{% if id !='' %}
-				<a
-					class="btn btn-primary btn-sm"
-					href="{{ path('administrateur_liste', {'parentName' : parentName,'parentId' : parentId,'userToAdmin': userToAdmin }) }}" 
-				>Retour à la liste complète</a>
+				{% if id !='' %}
+					<a class="btn btn-primary btn-sm" href="{{ path('administrateur_liste', {'parentName' : parentName,'parentId' : parentId,'userToAdmin': userToAdmin }) }}">Retour à la liste complète</a>
 
-			{% endif %}
+				{% endif %}
 
-			
 
-			{# Liste sous forme de tableau #}
-			<div class="table-responsive">
-				<table class="mt-5 table tableDisplay">
-					<thead>
-						{% if userToAdmin == 'structure' %}
-							<th>Adresse</th>
-						{% else %}
-							<th>Nom</th>
-						{% endif %}
-						<th>Email</th>
-						{% if (userToAdmin == 'partenaire' or userToAdmin == 'structure') %}
-							<th>détail</th>
-						{% endif %}
-						{% if userToAdmin != 'administrateur' %}
-							<th>Actif</th>
-						{% endif %}
-						<th>suppr.</th>
-					</thead>
+				{# Liste sous forme de tableau #}
+				<div class="table-responsive">
+					<table class="mt-5 table tableDisplay">
+						<thead>
+							{% if userToAdmin == 'structure' %}
+								<th>Adresse</th>
+							{% else %}
+								<th>Nom</th>
+							{% endif %}
+							<th>Email</th>
+							{% if (userToAdmin == 'partenaire' or userToAdmin == 'structure') %}
+								<th>détail</th>
+							{% endif %}
+							{% if userToAdmin != 'administrateur' %}
+								<th>Actif</th>
+							{% endif %}
+							<th>suppr.</th>
+						</thead>
 
-					<tbody>
-						{% for user in users %}
-							<tr>
-								{% if userToAdmin == 'structure' %}
-									<td>{{ user.address }}</td>
-								{% else %}
-									<td>{{ user.name }}</td>
-								{% endif %}
+						<tbody>
+							{% for user in users %}
+								<tr>
+									{% if userToAdmin == 'structure' %}
+										<td>{{ user.address }}</td>
+									{% else %}
+										<td>{{ user.name }}</td>
+									{% endif %}
 
-								<td>{{ user.email }}</td>
-								{% if userToAdmin == 'partenaire' %}
+									<td>{{ user.email }}</td>
+									{% if userToAdmin == 'partenaire' %}
+										<td>
+											<a href="{{ path('administrateur_liste', {'parentName' : user.name,'parentId' : user.id,'userToAdmin': 'structure' }) }}" class="btn btn-primary btn-sm  tableDisplay">détail</a>
+										</td>
+									{% elseif userToAdmin == 'structure' %}
+										<td>
+											<a href="{{ path('administrateur_liste', {'parentName' : user.address,'parentId' : user.id,'userToAdmin': 'option' }) }}" class="btn btn-primary btn-sm  tableDisplay">détail</a>
+										</td>
+									{% endif %}
+									{% if userToAdmin != 'administrateur' %}
+
+										<td class="checkbox">
+											<div class="form-check form-switch">
+												<input class="form-check-input inputUser" type="checkbox" role="switch" {{ user.activated ? 'checked' : '' }} data-id="{{user.id}}">
+												<label class="form-check-label" for="flexSwitchCheckDefault"></label>
+											</div>
+										</td>
+									{% endif %}
+
 									<td>
-										<a href="{{ path('administrateur_liste', {'parentName' : user.name,'parentId' : user.id,'userToAdmin': 'structure' }) }}" class="btn btn-primary btn-sm  tableDisplay">détail</a>
-									</td>
-								{% elseif userToAdmin == 'structure' %}
-									<td>
-										<a href="{{ path('administrateur_liste', {'parentName' : user.address,'parentId' : user.id,'userToAdmin': 'option' }) }}" class="btn btn-primary btn-sm  tableDisplay">détail</a>
-									</td>
-								{% endif %}
-								{% if userToAdmin != 'administrateur' %}
+										{# Bouton de suppression avec modal via controleur Stimulus #}
+										{% if user.name != 'Administrateur' %}
+											<div {{ stimulus_controller('modal-form')}}>
+												<button class="btn btn-primary btn-sm tableDisplay" data-action="modal-form#openModal">suppr.</button>
 
-									<td class="checkbox">
-										<div class="form-check form-switch">
-											<input class="form-check-input inputUser" type="checkbox" role="switch" {{ user.activated ? 'checked' : '' }} data-id="{{user.id}}">
-											<label class="form-check-label" for="flexSwitchCheckDefault"></label>
-										</div>
-									</td>
-								{% endif %}
-
-								<td>
-									{# Bouton de suppression avec modal via controleur Stimulus #}
-									{% if user.name != 'Administrateur' %}
-										<div {{ stimulus_controller('modal-form')}}>
-											<button
-												class="btn btn-primary btn-sm tableDisplay"
-												data-action="modal-form#openModal"
-											>suppr.</button>
-
-											{{ include('_modal.html.twig', {
-												modalTitle: 'Conirmer la suppression',
+												{{ include('_modal.html.twig', {
+												modalTitle: 'Confirmer la suppression',
 												modalUrl: path('suppression', {'userId' : user.Id,'userToAdmin': userToAdmin, 'parentId': parentId })
 											}) 
 											}}
-										</div>
-									{% endif %}
+											</div>
+										{% endif %}
+									</td>
+								</tr>
+
+							{% else %}
+								<tr>
+									<td>Il n'y a pas d'enregistrement pour ce tableau</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+
+				{# Création d'un nouvel enregistrement #}
+				{% if userToAdmin == 'administrateur' or userToAdmin == 'partenaire' %}
+					{# Création d'un administrateur ou d'un partenaire  #}
+					<div class="mt-5 row">
+						<div class="col-sm-12 col-lg-6">
+							<a href="{{ path('administrateur_creation', {'userToAdmin' : userToAdmin,'parentId' : '0'}) }}" class="btn btn-primary btn-sm">
+								Ajouter un
+								<strong>{{ userToAdmin }}</strong>
+							</a>
+						</div>
+					</div>
+				{% else %}
+					{% if parentId != '0' %}
+						{# Création d'une structure  #}
+						<div class="mt-5 row">
+							<div class="col-sm-12 col-lg-6">
+								<a href="{{ path('administrateur_creation',{'parentName' : parentName,'parentId' : parentId,'userToAdmin': userToAdmin }) }}" class="btn btn-primary btn-sm">
+									Ajouter une	sructure à la franchise
+									<strong>{{ parentName }}</strong>
+									.
+								</a>
+							</div>
+						</div>
+					{% endif %}
+				{% endif %}
+			{% endif %}
+
+			{# Liste des options globales #}
+			{% if userToAdmin == 'structure' %}
+				{% if parentId != '0' %}
+					<div class="mt-5">
+						<h2>Liste des options globales de la franchise de
+							{{ parentName }}</h2>
+						<div class="table-responsive">
+							<table class="mt-3 table tableDisplay">
+								<thead>
+									<th>Nom</th>
+									<th>Actif</th>
+								</thead>
+
+								<tbody>
+									{% for global_option in global_options %}
+										<tr>
+											<td>{{ global_option.name }}</td>
+											<td>
+												<div class="form-check form-switch">
+													<input class="form-check-input inputGlobalOption" type="checkbox" role="switch" {{ global_option.activated ? 'checked' : '' }} data-id="{{global_option.id}}">
+													<label class="form-check-label" for="flexSwitchCheckDefault"></label>
+												</div>
+											</td>
+										</tr>
+									{% else %}
+										<tr>
+											<td>Il n'y a pas d'enregistrement pour ce tableau</td>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				{% endif %}
+			{% endif %}
+
+			{% if userToAdmin == 'option' %}
+				{% if parentId != '0' %}
+					<div class="mt-5">
+						<h2>Liste des options de la structure de
+							{{ parentName }}</h2>
+						<div class="table-responsive">
+							<table class="mt-3 table tableDisplay">
+								<thead>
+									<th>Nom</th>
+									<th>Actif</th>
+								</thead>
+
+								<tbody>
+									{% for option in options %}
+										<tr>
+											<td>{{ option.name }}</td>
+											<td>
+												<div class="form-check form-switch">
+													<input class="form-check-input Option" type="checkbox" role="switch" {{ option.activated ? 'checked' : '' }} data-id="{{option.id}}">
+													<label class="form-check-label" for="flexSwitchCheckDefault"></label>
+												</div>
+											</td>
+										</tr>
+									{% else %}
+										<tr>
+											<td>Il n'y a pas d'enregistrement pour ce tableau</td>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				{% endif %}
+			{% endif %}
+
+			{# affichage Role partenaire #}
+		{% elseif is_granted('ROLE_PARTENAIRE') %}
+			<div class="mt-5">
+				<h3>Liste de vos structures</strong>
+				:</h3>
+			<div class="table-responsive">
+				<table class="mt-5 table tableDisplay">
+					<thead>
+						<th>Adresse</th>
+						<th>Email</th>
+						<th>Active</th>
+					</thead>
+					<tbody>
+						{% for user in users %}
+							<tr>
+								<td>{{ user.address }}</td>
+								<td>{{ user.email }}</td>
+								<td>
+									{{ user.activated ? 'OUI' : 'NON' }}
 								</td>
 							</tr>
 
@@ -147,180 +252,55 @@
 					</tbody>
 				</table>
 			</div>
+		</div>
 
-			{# Création d'un nouvel enregistrement #}
-			{% if userToAdmin == 'administrateur' or userToAdmin == 'partenaire' %}
-				{# Création d'un administrateur ou d'un partenaire  #}
-				<div class="mt-5 row">
-					<div class="col-sm-12 col-lg-6">
-						<a href="{{ path('administrateur_creation', {'userToAdmin' : userToAdmin,'parentId' : '0'}) }}"	class="btn btn-primary btn-sm">
-							Ajouter un <strong>{{ userToAdmin }}</strong>
-						</a>
-					</div>
-				</div>
-			{% else %}
-				{% if parentId != '0' %}
-				{# Création d'une structure  #}
-					<div class="mt-5 row">
-						<div class="col-sm-12 col-lg-6">
-							<a href="{{ path('administrateur_creation',{'parentName' : parentName,'parentId' : parentId,'userToAdmin': userToAdmin }) }}" class="btn btn-primary btn-sm">
-								Ajouter une	sructure à la franchise <strong>{{ parentName }}</strong> .
-							</a>
-						</div>
-					</div>
-				{% endif %}
-			{% endif %}
-		{% endif %}
-
-		{# Liste des options globales #}
-		{% if userToAdmin == 'structure' %}
-			{% if parentId != '0' %}
-				<div class="mt-5">
-					<h2>Liste des options globales de la franchise de {{ parentName }}</h2>
-					<div class="table-responsive">
-						<table class="mt-3 table tableDisplay">
-							<thead>
-								<th>Nom</th>
-								<th>Actif</th>
-							</thead>
-
-							<tbody>
-								{% for global_option in global_options %}
-									<tr>
-										<td>{{ global_option.name }}</td>
-										<td>
-											<div class="form-check form-switch">
-												<input class="form-check-input inputGlobalOption" type="checkbox" role="switch" {{ global_option.activated ? 'checked' : '' }} data-id="{{global_option.id}}">
-												<label class="form-check-label" for="flexSwitchCheckDefault"></label>
-											</div>
-										</td>
-									</tr>
-								{% else %}
-									<tr>
-										<td>Il n'y a pas d'enregistrement pour ce tableau</td>
-									</tr>
-								{% endfor %}
-							</tbody>
-						</table>
-					</div>
-				</div>
-			{% endif %}
-		{% endif %}
-
-		{% if userToAdmin == 'option' %}
-			{% if parentId != '0' %}
-				<div class="mt-5">
-					<h2>Liste des options de la structure de {{ parentName }}</h2>
-					<div class="table-responsive">
-						<table class="mt-3 table tableDisplay">
-							<thead>
-								<th>Nom</th>
-								<th>Actif</th>
-							</thead>
-
-							<tbody>
-								{% for option in options %}
-									<tr>
-										<td>{{ option.name }}</td>
-										<td>
-											<div class="form-check form-switch">
-												<input class="form-check-input Option" type="checkbox" role="switch" {{ option.activated ? 'checked' : '' }} data-id="{{option.id}}">
-												<label class="form-check-label" for="flexSwitchCheckDefault"></label>
-											</div>
-										</td>
-									</tr>
-								{% else %}
-									<tr>
-										<td>Il n'y a pas d'enregistrement pour ce tableau</td>
-									</tr>
-								{% endfor %}
-							</tbody>
-						</table>
-					</div>
-				</div>
-			{% endif %}
-		{% endif %}
-
-		{# affichage Role partenaire #}
-		{% elseif is_granted('ROLE_PARTENAIRE') %}
-			<div class="mt-5">
-				<h3>Liste de vos structures</strong> :</h3>
-				<div class="table-responsive">
-					<table class="mt-5 table tableDisplay">
-						<thead>
-							<th>Adresse</th>
-							<th>Email</th>
-							<th>Active</th>
-						</thead>
-						<tbody>
-							{% for user in users %}
-								<tr>
-									<td>{{ user.address }}</td>
-									<td>{{ user.email }}</td>
-									<td>
-										{{ user.activated ? 'OUI' : 'NON' }}
-									</td>
-								</tr>
-
-							{% else %}
-								<tr>
-									<td>Il n'y a pas d'enregistrement pour ce tableau</td>
-								</tr>
-							{% endfor %}
-						</tbody>
-					</table>
-				</div>
-			</div>
-
-			<div class="mt-5">
-				<h3>Liste des vos options globales</h3>
-				{# Liste sous forme de tableau #}
-				<div class="table-responsive">
-					<table class="mt-5 table">
-						<thead>
-							<th>Nom</th>
-							<th>Actif</th>
-						</thead>
-
-						<tbody>
-							{% for global_option in global_options %}
-								<tr>
-									<td>{{ global_option.name }}</td>
-									<td>{{ global_option.activated ? 'Oui' : 'Non' }}</td>
-								</tr>
-							{% else %}
-								<tr>
-									<td>Il n'y a pas d'enregistrement pour ce tableau</td>
-								</tr>
-							{% endfor %}
-						</tbody>
-					</table>
-				</div>
-			</div>
-
-
-		{# affichage Role structure #}
-		{% elseif is_granted('ROLE_STRUCTURE') %}
-
-			<h3>Liste des vos options</h3>
+		<div class="mt-5">
+			<h3>Liste des vos options globales</h3>
+			{# Liste sous forme de tableau #}
 			<div class="table-responsive">
-				<table class="mt-5 table tableDisplay">
+				<table class="mt-5 table">
 					<thead>
 						<th>Nom</th>
 						<th>Actif</th>
 					</thead>
 
 					<tbody>
-						{% for option in options %}
+						{% for global_option in global_options %}
 							<tr>
-								<td>{{ option.name }}</td>
-								<td>{{ option.activated ? 'Oui' : 'Non' }}</td>
+								<td>{{ global_option.name }}</td>
+								<td>{{ global_option.activated ? 'Oui' : 'Non' }}</td>
+							</tr>
+						{% else %}
+							<tr>
+								<td>Il n'y a pas d'enregistrement pour ce tableau</td>
 							</tr>
 						{% endfor %}
 					</tbody>
 				</table>
 			</div>
-		{% endif %}
-	</div>
-{% endblock %}
+		</div>
 
+
+		{# affichage Role structure #}
+	{% elseif is_granted('ROLE_STRUCTURE') %}
+
+		<h3>Liste des vos options</h3>
+		<div class="table-responsive">
+			<table class="mt-5 table tableDisplay">
+				<thead>
+					<th>Nom</th>
+					<th>Actif</th>
+				</thead>
+
+				<tbody>
+					{% for option in options %}
+						<tr>
+							<td>{{ option.name }}</td>
+							<td>{{ option.activated ? 'Oui' : 'Non' }}</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	{% endif %}
+</div>{% endblock %}
