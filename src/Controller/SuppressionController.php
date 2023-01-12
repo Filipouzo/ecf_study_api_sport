@@ -23,7 +23,7 @@ class SuppressionController extends AbstractController
         $entityManager->remove($user);
         $entityManager->flush($user);
 
-        $this-> addFlash('notice', 'enregistrement supprmé avec succès');
+        $this-> addFlash('notice', 'enregistrement supprimé avec succès');
         return $this->redirectToRoute('administrateur_liste', array('userToAdmin' => $userToAdmin, 'parentId'=> $parentId ) );
     }
 }
