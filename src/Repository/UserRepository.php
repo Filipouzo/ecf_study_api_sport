@@ -97,7 +97,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
 
-    /* Recherche des administrateurs des partenaires par nom */
+    /* Recherche des administrateurs ou des partenaires par nom */
     public function findbyName($search,$userToAdmin)
     {
         $qb = $this->_em->createQueryBuilder();
