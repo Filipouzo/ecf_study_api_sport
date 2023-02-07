@@ -82,11 +82,11 @@
 									<td>{{ user.email }}</td>
 									{% if userToAdmin == 'partenaire' %}
 										<td>
-											<a href="{{ path('administrateur_liste', {'parentName' : user.name,'parentId' : user.id,'userToAdmin': 'structure' }) }}" class="btn btn-primary btn-sm  tableDisplay">détail</a>
+											<a href="{{ path('partenaire_liste', {'parentName' : user.name,'parentId' : user.id,'userToAdmin': 'structure' }) }}" class="btn btn-primary btn-sm  tableDisplay">détail</a>
 										</td>
 									{% elseif userToAdmin == 'structure' %}
 										<td>
-											<a href="{{ path('administrateur_liste', {'parentName' : user.address,'parentId' : user.id,'userToAdmin': 'option' }) }}" class="btn btn-primary btn-sm  tableDisplay">détail</a>
+											<a href="{{ path('structure_liste', {'parentName' : user.address,'parentId' : user.id,'userToAdmin': 'option' }) }}" class="btn btn-primary btn-sm  tableDisplay">détail</a>
 										</td>
 									{% endif %}
 									{% if userToAdmin != 'administrateur' %}
@@ -188,7 +188,6 @@
 			{% endif %}
 
 			{% if userToAdmin == 'option' %}
-				{% if parentId != '0' %}
 					<div class="mt-5">
 						<h2>Liste des options de la structure de
 							{{ parentName }}</h2>
@@ -219,7 +218,6 @@
 							</table>
 						</div>
 					</div>
-				{% endif %}
 			{% endif %}
 
 			{# affichage Role partenaire #}

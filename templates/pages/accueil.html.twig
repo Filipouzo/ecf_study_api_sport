@@ -33,14 +33,14 @@
 					<strong>{{ app.user.name }}</strong>
 				</h1>
 				<div class="m-3">
-					<a href="{{ path('administrateur_liste',{'parentId' : connectedUser.id,'userToAdmin': 'partenaire'}) }}" class="btn btn-primary">Vos structures options globales</a>
+					<a href="{{ path('partenaire_liste',{'parentId' : connectedUser.id,'userToAdmin': 'partenaire'}) }}" class="btn btn-primary">Vos structures options globales</a>
 				</div>
 
 			{% elseif is_granted('ROLE_STRUCTURE') %}
 				<h1>Structure de la <strong>{{ app.user.address }}</strong>
 			</h1>
 			<div class="m-3">
-				<a href="{{ path('administrateur_liste',{'parentId' : connectedUser.id,'userToAdmin': 'partenaire'}) }}" class="btn btn-primary">Voir vos options</a>
+				<a href="{{ path('structure_liste',{'parentId' : connectedUser.id,'userToAdmin': 'partenaire'}) }}" class="btn btn-primary">Voir vos options</a>
 			</div>
 		{% endif %}
 

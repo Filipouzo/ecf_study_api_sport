@@ -27,61 +27,107 @@ class ListeController extends AbstractController
 
         $searchResult = $request->query->get('id');
         $searchTerm = $request->query->get('q');
-/*         $searchResult = $userRepository->findByName($searchTerm); */
-
-/*         $searchResult = $userRepository->search(
-            'name',
-            $searchTerm
-        ); */
-
-/*            if ($request->query->get('preview')) {
-
-            dd($searchTerm);
-            return $this->render('partials/_searchPreview.html.twig', [
-                'users' => $searchResult,
-            ]);
-        } */
         
-            if ($parentId !='0') {
-                // retourne la liste des administrateurs ou des partenaires
-                return $this->render("pages/listeUser.html.twig", [
-                    'users' => $userRepository->findByParentId($parentId,$searchResult),
-                    /* 'parentName' => $users->findById($parentId), */
-                    'pageName' => 'liste '.$userToAdmin,
-                    'userToAdmin' => $userToAdmin,
-                    'parentId' => $parentId,
-                    'parentName' => $parentName,
-                    'searchTerm' => $searchTerm,
-                    'id' => $searchResult,
-                    'global_options' => $globalOptionRepository->findByIdPartner($parentId),
-                    'options' => $optionRepository->findByIdStructure($parentId),
-                ]);
-
-            } else {
-                // retourne la liste des structures
-                return $this->render("pages/listeUser.html.twig", [
-                'users' => $userRepository->findByRole('ROLE_'.strtoupper($userToAdmin),$searchResult),
+        if ($parentId !='0') {
+            // retourne la liste des administrateurs ou des partenaires
+            return $this->render("pages/listeUser.html.twig", [
+                'users' => $userRepository->findByParentId($parentId,$searchResult),
+                /* 'parentName' => $users->findById($parentId), */
                 'pageName' => 'liste '.$userToAdmin,
                 'userToAdmin' => $userToAdmin,
+                'parentId' => $parentId,
                 'parentName' => $parentName,
-                'parentId' => '0',
                 'searchTerm' => $searchTerm,
                 'id' => $searchResult,
                 'global_options' => $globalOptionRepository->findByIdPartner($parentId),
                 'options' => $optionRepository->findByIdStructure($parentId),
-                ]);
-            }
+            ]);
+
+        } else {
+            // retourne la liste des structures
+            return $this->render("pages/listeUser.html.twig", [
+            'users' => $userRepository->findByRole('ROLE_'.strtoupper($userToAdmin),$searchResult),
+            'pageName' => 'liste '.$userToAdmin,
+            'userToAdmin' => $userToAdmin,
+            'parentName' => $parentName,
+            'parentId' => '0',
+            'searchTerm' => $searchTerm,
+            'id' => $searchResult,
+            'global_options' => $globalOptionRepository->findByIdPartner($parentId),
+            'options' => $optionRepository->findByIdStructure($parentId),
+            ]);
+        }
     }
 
-/*     #[Route('partenaire/liste/structure', name: 'partenaire_liste')]
-    public function partenaireList(Request $request, UserRepository $users)
-    {
-        $connectedUserId = $request->query->get('connectedUserId');
+
+
+
+
+    #[Route('partenaire/liste/', name: 'partenaire_liste')]
+    public function partenaireList(Request $request, UserRepository $userRepository, GlobalOptionRepository $globalOptionRepository, OptionRepository $optionRepository)
+    {        
+        $userToAdmin = $request->query->get('userToAdmin');
+        $parentId = $request->query->get('parentId');
+        $parentName = $request->query->get('parentName');
+
+        $searchResult = $request->query->get('id');
+        $searchTerm = $request->query->get('q');
+        
+        if ($parentId !='0') {
+            // retourne la liste des partenaires
+            return $this->render("pages/listeUser.html.twig", [
+                'users' => $userRepository->findByParentId($parentId,$searchResult),
+                /* 'parentName' => $users->findById($parentId), */
+                'pageName' => 'liste '.$userToAdmin,
+                'userToAdmin' => $userToAdmin,
+                'parentId' => $parentId,
+                'parentName' => $parentName,
+                'searchTerm' => $searchTerm,
+                'id' => $searchResult,
+                'global_options' => $globalOptionRepository->findByIdPartner($parentId),
+                'options' => $optionRepository->findByIdStructure($parentId),
+            ]);
+
+        } else {
+            // retourne la liste des structures
+            return $this->render("pages/listeUser.html.twig", [
+            'users' => $userRepository->findByRole('ROLE_'.strtoupper($userToAdmin),$searchResult),
+            'pageName' => 'liste '.$userToAdmin,
+            'userToAdmin' => $userToAdmin,
+            'parentName' => $parentName,
+            'parentId' => '0',
+            'searchTerm' => $searchTerm,
+            'id' => $searchResult,
+            'global_options' => $globalOptionRepository->findByIdPartner($parentId),
+            'options' => $optionRepository->findByIdStructure($parentId),
+            ]);
+        }
+    }
+
+
+    #[Route('structure/liste', name: 'structure_liste')]
+    public function structureList(Request $request, UserRepository $userRepository, GlobalOptionRepository $globalOptionRepository, OptionRepository $optionRepository)
+    {        
+        $userToAdmin = $request->query->get('userToAdmin');
+        $parentId = $request->query->get('parentId');
+        $parentName = $request->query->get('parentName');
+
+        $searchResult = $request->query->get('id');
+        $searchTerm = $request->query->get('q');
+        
+        // retourne la liste des structures
         return $this->render("pages/listeUser.html.twig", [
-            'parentId' => $parentId,
-            'pageName' => 'liste structure',
-            'userToAdmin' => 'structure'
+        'users' => $userRepository->findByRole('ROLE_'.strtoupper($userToAdmin),$searchResult),
+        'pageName' => 'liste '.$userToAdmin,
+        'userToAdmin' => $userToAdmin,
+        'parentName' => $parentName,
+        'parentId' => '0',
+        'searchTerm' => $searchTerm,
+        'id' => $searchResult,
+        'global_options' => $globalOptionRepository->findByIdPartner($parentId),
+        'options' => $optionRepository->findByIdStructure($parentId),
         ]);
-    } */
+            
+    }
 }
 
