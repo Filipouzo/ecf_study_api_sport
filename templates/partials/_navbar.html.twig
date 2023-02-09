@@ -6,41 +6,50 @@
 		</button>
 
 
-		<div class="collapse navbar-collapse" id="navbarColor01">
+		<div class="collapse navbar-collapse" id="mainNavbar">
 			<ul class="navbar-nav me-auto">
 
 				<li class="nav-item">
-					<a class="nav-link active" {% if app.user %}{#  {% if is_granted('ROLE_ADMINISTRATEUR') %}  #}href="{{ path('administrateur_accueil') }}" {# {% elseif is_granted('ROLE_PARTENAIRE') %} href="{{ path('partenaire_accueil') }}" {% elseif is_granted('ROLE_STRUCTURE') %} href="{{ path('structure_accueil') }}" {% endif %} #} {% else %} href="{{ path('app_login') }}" {% endif %}>
+					<a {% if userToAdmin is defined %} class="nav-link" {% else %} class="nav-link active" {% endif %}
+						{% if app.user %} 
+							{% if is_granted('ROLE_ADMINISTRATEUR') %} href="{{ path('administrateur_accueil') }}" 
+							{% elseif is_granted('ROLE_PARTENAIRE') %} href="{{ path('partenaire_accueil') }}" 
+							{% elseif is_granted('ROLE_STRUCTURE') %} href="{{ path('structure_accueil') }}" 
+							{% endif %} 
+						{% else %} href="{{ path('app_login') }}" 
+						{% endif %}>
 						<font style="vertical-align: inherit;">
 							<font style="vertical-align: inherit;">Accueil
 							</font>
 						</font>
-						<span class="visually-hidden">
+{# 						<span class="visually-hidden">
 							<font style="vertical-align: inherit;">
 								<font style="vertical-align: inherit;">(courant)</font>
 							</font>
-						</span>
+						</span> #}
 					</a>
 				</li>
 
 				{% if is_granted('ROLE_ADMINISTRATEUR') %}
 
 					<li class="nav-item">
-						<a class="nav-link active" href="{{ path('administrateur_liste',{'userToAdmin': 'administrateur','parentId' : '0' }) }}">
+						<a {% if userToAdmin is defined and userToAdmin == 'administrateur' %} class="nav-link active" {% else %} class="nav-link" {% endif %} 
+							href="{{ path('administrateur_liste',{'userToAdmin': 'administrateur','parentId' : '0' }) }}">
 							<font style="vertical-align: inherit;">
 								<font style="vertical-align: inherit;">Administrateurs
 								</font>
 							</font>
-							<span class="visually-hidden">
+{# 							<span class="visually-hidden">
 								<font style="vertical-align: inherit;">
 									<font style="vertical-align: inherit;">(courant)</font>
 								</font>
-							</span>
+							</span> #}
 						</a>
 					</li>
 
 					<li class="nav-item">
-						<a class="nav-link" href="{{ path('administrateur_liste',{'userToAdmin': 'partenaire','parentId' : '0'  }) }}">
+						<a {% if userToAdmin is defined and userToAdmin == 'partenaire' %} class="nav-link active" {% else %} class="nav-link" {% endif %} 
+							href="{{ path('administrateur_liste',{'userToAdmin': 'partenaire','parentId' : '0'  }) }}">
 							<font style="vertical-align: inherit;">
 								<font style="vertical-align: inherit;">Franchises</font>
 							</font>
@@ -48,16 +57,15 @@
 					</li>
 
 					<li class="nav-item">
-						<a class="nav-link" href="{{ path('administrateur_liste',{'userToAdmin': 'structure','parentId' : '0'  }) }}">
+						<a {% if userToAdmin is defined and  userToAdmin == 'structure'%} class="nav-link active" {% else %} class="nav-link" {% endif %} 
+							href="{{ path('administrateur_liste',{'userToAdmin': 'structure','parentId' : '0'  }) }}">
 							<font style="vertical-align: inherit;">
 								<font style="vertical-align: inherit;">Structures</font>
 							</font>
 						</a>
 					</li>
-
 				{% endif %}
 			</ul>
-
 		</div>
 	</div>
 </nav>

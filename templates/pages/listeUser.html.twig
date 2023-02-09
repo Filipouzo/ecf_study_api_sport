@@ -9,6 +9,7 @@
 	{% include "partials/_navbar.html.twig" %}
 	<div
 		class="wrapper">
+
 		{# affichage Role administrateur #}
 		{% if is_granted('ROLE_ADMINISTRATEUR') %}
 			{% if  userToAdmin!= 'option'%}
@@ -92,6 +93,7 @@
 									{% if userToAdmin != 'administrateur' %}
 
 										<td class="checkbox">
+											{# un buton switch est allumé si l'utilisateur est activée sinon il est éteind #}
 											<div class="form-check form-switch">
 												<input class="form-check-input inputUser" type="checkbox" role="switch" {{ user.activated ? 'checked' : '' }} data-id="{{user.id}}">
 												<label class="form-check-label" for="flexSwitchCheckDefault"></label>
@@ -169,6 +171,7 @@
 										<tr>
 											<td>{{ global_option.name }}</td>
 											<td>
+												{# un buton switch est allumé si l'option globale est activée sinon il est éteind #}
 												<div class="form-check form-switch">
 													<input class="form-check-input inputGlobalOption" type="checkbox" role="switch" {{ global_option.activated ? 'checked' : '' }} data-id="{{global_option.id}}">
 													<label class="form-check-label" for="flexSwitchCheckDefault"></label>
@@ -203,8 +206,9 @@
 										<tr>
 											<td>{{ option.name }}</td>
 											<td>
+												{# un buton switch est allumé si l'option est activée sinon il est éteind #}
 												<div class="form-check form-switch">
-													<input class="form-check-input Option" type="checkbox" role="switch" {{ option.activated ? 'checked' : '' }} data-id="{{option.id}}">
+													<input class="form-check-input inputOption" type="checkbox" role="switch" {{ option.activated ? 'checked' : '' }} data-id="{{option.id}}">
 													<label class="form-check-label" for="flexSwitchCheckDefault"></label>
 												</div>
 											</td>
@@ -220,7 +224,7 @@
 					</div>
 			{% endif %}
 
-			{# affichage Role partenaire #}
+		{# affichage Role partenaire #}
 		{% elseif is_granted('ROLE_PARTENAIRE') %}
 			<div class="mt-5">
 				<h3>Liste de vos structures</strong>
@@ -279,7 +283,7 @@
 		</div>
 
 
-		{# affichage Role structure #}
+	{# affichage Role structure #}
 	{% elseif is_granted('ROLE_STRUCTURE') %}
 
 		<h3>Liste des vos options</h3>

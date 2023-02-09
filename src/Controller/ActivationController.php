@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Option;
 use App\Entity\GlobalOption;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ActivationController extends AbstractController
 {
-    #[Route('administrateur/activer/{id}', name: 'activer')]
+    #[Route('administrateur/activerUser/{id}', name: 'activer')]
     public function activer(User $user, EntityManagerInterface $entityManager): Response
     {
         $user->setActivated(($user->isActivated())?false:true);
@@ -23,7 +24,7 @@ class ActivationController extends AbstractController
         return new Response("true");
     }
 
-    #[Route('administrateur/GlobalOption/{id}', name: 'activerGlobalOption')]
+    #[Route('administrateur/activerGlobalOption/{id}', name: 'activerGlobalOption')]
     public function activerglobalOption(GlobalOption $globalOption, EntityManagerInterface $entityManager): Response
     {
         $globalOption->setActivated(($globalOption->isActivated()) ? false : true);
@@ -33,4 +34,13 @@ class ActivationController extends AbstractController
         return new Response("true");
     }
 
+    #[Route('administrateur/activerOption/{id}', name: 'activerOption')]
+    public function activerOption(Option $Option, EntityManagerInterface $entityManager): Response
+    {
+        $Option->setActivated(($Option->isActivated()) ? false : true);
+        $entityManager->persist($Option);
+        $entityManager->flush($Option);
+
+        return new Response("true");
+    }
 }
