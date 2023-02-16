@@ -83,6 +83,7 @@ class StructureConnexionTest extends WebTestCase
 
         // Vérifier que la réponse à bien le statut 403
         $this->assertEquals(403, $client->getResponse()->getStatusCode(), 'Un utilisateur structure peut accéder à une page administrateur');
+        
     }
 }
 
