@@ -1033,9 +1033,9 @@
   integrity sha512-50/17A98tWUfQ176raKiOGXuYpLyyVMkxxG6oylzL3BPOlA6ADGdK7EYunSa4I064xerltq9TGXs8HmOk5E+vw==
 
 "@sinclair/typebox@^0.25.16":
-  version "0.25.22"
-  resolved "https://registry.yarnpkg.com/@sinclair/typebox/-/typebox-0.25.22.tgz#2808d895e9c2722b20a622a9c8cb332f6720eb4a"
-  integrity sha512-6U6r2L7rnM7EG8G1tWzIjdB3QlsHF4slgcqXNN/SF0xJOAr0nDmT2GedlkyO3mrv8mDTJ24UuOMWR3diBrCvQQ==
+  version "0.25.23"
+  resolved "https://registry.yarnpkg.com/@sinclair/typebox/-/typebox-0.25.23.tgz#1c15b0d2b872d89cc0f47c7243eacb447df8b8bd"
+  integrity sha512-VEB8ygeP42CFLWyAJhN5OklpxUliqdNEUcXb4xZ/CINqtYGTjL5ukluKdKzQ0iWdUxyQ7B0539PAUhHKrCNWSQ==
 
 "@symfony/stimulus-bridge@^3.2.1":
   version "3.2.1"
@@ -4620,9 +4620,9 @@ sass-graph@^4.0.1:
     scss-tokenizer "^0.4.3"
     yargs "^17.2.1"
 
-sass-loader@^13.2.0:
+sass-loader@^13.1.0:
   version "13.2.0"
-  resolved "https://registry.yarnpkg.com/sass-loader/-/sass-loader-13.2.0.tgz#80195050f58c9aac63b792fa52acb6f5e0f6bdc3"
+  resolved "https://registry.yarnpkg.com/sass-loader/-/sass-loader-13.1.0.tgz#80195050f58c9aac63b792fa52acb6f5e0f6bdc3"
   integrity sha512-JWEp48djQA4nbZxmgC02/Wh0eroSUutulROUusYJO9P9zltRbNN80JCBHqRGzjd4cmZCa/r88xgfkjGD0TXsHg==
   dependencies:
     klona "^2.0.4"
