@@ -30,7 +30,7 @@ class AppFixtures extends Fixture
         
         
         // * autres fixtures user
-        $this-> createUserFixture(email: 'administrateur@exemple.com',password:'administrateur', name:'Administrateur', address:'', activated:'true', role:'ROLE_ADMINISTRATEUR' ,parent: null, manager: $manager);
+        $this-> createUserFixture(email: 'administrateur@exemple.com',password:'administrateur', name:'Philippe', address:'', activated:'true', role:'ROLE_ADMINISTRATEUR' ,parent: null, manager: $manager);
         $this-> createUserFixture(email: 'administrateur2@exemple.com',password:'administrateur2', name:'OLivier', address:'', activated:'true', role:'ROLE_ADMINISTRATEUR' ,parent: null, manager: $manager);
         $this-> createUserFixture(email: 'administrateur3@exemple.com',password:'administrateur3', name:'Edouard', address:'', activated:'true', role:'ROLE_ADMINISTRATEUR' ,parent: null, manager: $manager);
         $this-> createUserFixtureStructure(email: 'structure@exemple.com',password:'structure', name:'', address:'rue de cugnaux ', activated:'true', role:'ROLE_STRUCTURE' ,parent:$parent, manager: $manager);
