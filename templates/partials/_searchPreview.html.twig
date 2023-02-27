@@ -1,4 +1,7 @@
 <div class="list-group">
+    {# S'ils existent affiche les résultats contenus dans le tableau users - ceux-ci peuvent être des nom ou des adresses #}
+    {# au réulstat est attaché un lien vers la page à afficher #}
+    {# S'ils n'existent pas affiche "pas de résultat !" #}
     {% for user in users %}
         <a
             class="list-group-item list-group-item-action"
@@ -6,11 +9,8 @@
         >
                 {{ user.name }}
                 {{ user.address}}
-            
-            
         </a>
     {% else %}
         <div class="list-group-item">Pas de résultat !</div>
     {% endfor %}
-    
 </div>

@@ -33,12 +33,15 @@
 					<div class="col-lg-6">
 						<form>
 							<div
-								{# ajax #} class="input-group" {{stimulus_controller('search-preview', { url: 'search', parentId: parentId, userToAdmin: userToAdmin, parentName: parentName, } )}}>
-								{# Entrée #}
+								{# appel du controleur Stimulus qui a pour nom search-preview avec en second paramètre l'URL du controleur SearchController #}
+								 class="input-group" {{stimulus_controller('search-preview', { url: 'search', parentId: parentId, userToAdmin: userToAdmin, parentName: parentName, } )}}>
+
+								{# Entrée : à chaque entrée de l'utilisateur, l'action est d'appeler la méthode onSearchInput dans le controleur Stimulus search-preview #}
 								<div class="">
 									<input
 									name="q" value="{{searchTerm}}" type="search" placeholder="Rechercher..." class="form-control" aria-label="Rechercher" data-action="search-preview#onSearchInput">
-									{# résultat #}
+									
+									{# résultat : affiche le résultat de la recherche effectuée dans le controleur SearchController #}
 									<div class="search-preview" data-search-preview-target="result"></div>
 								</div>
 							</div>

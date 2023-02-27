@@ -97,7 +97,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
 
-    /* Recherche des administrateurs ou des partenaires par nom */
+    /* Recherche une liste de noms d'administrateur (2 maxi) */
     public function findbyName($search,$userToAdmin)
     {
         $qb = $this->_em->createQueryBuilder();
@@ -117,7 +117,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }        
 
 
-    /* Recherche des structures par adresse */
+    /* Recherche une liste d'adresses de structures (2 maxi)  */
     public function findByAddress($search)
     {
         $qb = $this->_em->createQueryBuilder();
