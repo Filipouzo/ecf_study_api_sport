@@ -35,12 +35,11 @@ body {
 }
 
 /* Le sous-titre et les renseignements de l'utilisateur connecté disparaissent pour écrans <lg  */
-@media screen and (max-width:640px) {
+@media screen and (max-width:768px) {
     .roleDisplay{
       display: none;
     }
   }
-
   
 /* font-size des tableaux réduite pour écrans <sm et <xs  */
 @media screen and (max-width:992px) {
@@ -55,8 +54,8 @@ body {
     }
   } 
 
-
-@media only screen and (max-width: 640px) {
+/* permet de scroller les tableaux sur mobile */
+@media only screen and (max-width: 768px) {
   #unseen table td:nth-child(2), 
   #unseen table th:nth-child(2) {display: none;}
 }
